@@ -1,4 +1,12 @@
+{% extends "base.html" %}
+
 {% block content %}
+
+  {% if messages %}
+        <div class="alert alert-success">
+            <strong>{{ messages|first }}</strong>
+        </div>
+  {% endif %}
 
   {% if form.errors %}
     <p>Your username and password didn't match. Please try again.</p>
