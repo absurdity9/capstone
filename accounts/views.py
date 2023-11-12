@@ -9,5 +9,7 @@ class SignUpView(CreateView):
     success_url = reverse_lazy("login")
     template_name = "registration/signup.html"
 
-    def get_success_message(self, cleaned_data):
-        return "Account created. Please log in."
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        self.request.session['signup_success_message'] = 'Account created. Please log in.'
+        return response

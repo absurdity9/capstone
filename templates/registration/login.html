@@ -2,10 +2,10 @@
 
 {% block content %}
 
-  {% if messages %}
-        <div class="alert alert-success">
-            <strong>{{ messages|first }}</strong>
-        </div>
+  {% if request.session.signup_success_message %}
+  <div class="alert alert-success">
+      <strong>{{ request.session.signup_success_message }}</strong>
+  </div>
   {% endif %}
 
   {% if form.errors %}
