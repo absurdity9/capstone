@@ -57,11 +57,29 @@ function updateStep(step) {
   }
 
   if (currentStep === formSteps.length - 1) {
-    nextButton.innerText = 'Done';
-  } else {
-    nextButton.innerText = 'Next';
+    console.log("End")
+    nextButton.style.display = 'none';
+    backButton.style.display = 'none';
+    // Create new buttons
+    const saveButton = document.createElement('a');
+    saveButton.innerText = 'Save my moneymap';
+    saveButton.href = '/signup';
+    saveButton.classList.add('btn', 'btn-success', 'mr-3');
+
+    const exploreButton = document.createElement('a');
+    exploreButton.innerText = 'Explore';
+    exploreButton.href = '/explore';
+    exploreButton.classList.add('btn', 'btn-info');
+
+    // Append new buttons to the container
+    const buttonContainer = document.getElementById('pills-step5'); // Replace 'buttonContainer' with the actual ID of the container element
+    buttonContainer.appendChild(saveButton);
+    buttonContainer.appendChild(exploreButton);
+    } else {
+      nextButton.innerText = 'Next';
+      nextButton.classList.add('m-2');
+    }
   }
-}
 
 // Get form steps
 const formSteps = document.querySelectorAll('.tab-pane');
