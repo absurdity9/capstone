@@ -34,42 +34,50 @@
         </form>
       </div>
       <div class="tab-pane fade" id="pills-step2" role="tabpanel" aria-labelledby="pills-step2-tab">
-        <h2>Personal Info</h2>
+        <h2>Cash out</h2>
         <form>
           <div class="mb-3">
-            <label for="user_name" class="form-label">User Name</label>
+            <label for="user_name" class="form-label">Cost of Shelter & Bills</label>
             <input type="text" class="form-control" id="user_name">
           </div>
           <div class="mb-3">
-            <label for="first_name" class="form-label">First Name</label>
+            <label for="first_name" class="form-label">Cost of Travel</label>
             <input type="text" class="form-control" id="first_name">
           </div>
           <div class="mb-3">
-            <label for="last_name" class="form-label">Last Name</label>
+            <label for="last_name" class="form-label">Cost of Groceries</label>
+            <input type="text" class="form-control" id="last_name">
+          </div>
+          <div class="mb-3">
+            <label for="last_name" class="form-label">Other Costs</label>
             <input type="text" class="form-control" id="last_name">
           </div>
         </form>
       </div>
       <div class="tab-pane fade" id="pills-step3" role="tabpanel" aria-labelledby="pills-step3-tab">
-        <h2>Professional Info</h2>
+        <h2>Savings & Investments</h2>
         <form>
           <div class="mb-3">
-            <label for="company" class="form-label">Current Company</label>
+            <label for="company" class="form-label">Amount in a Savings Account</label>
             <input type="text" class="form-control" id="company">
           </div>
           <div class="mb-3">
-            <label for="experience" class="form-label">Total Experience</label>
+            <label for="experience" class="form-label">Yearly Interest % Earned</label>
             <input type="text" class="form-control" id="experience">
           </div>
           <div class="mb-3">
-            <label for="designation" class="form-label">Designation</label>
+            <label for="designation" class="form-label">Amount in Vanguard Account</label>
+            <input type="text" class="form-control" id="designation">
+          </div>
+          <div class="mb-3">
+            <label for="designation" class="form-label">Benchmark % Return</label>
             <input type="text" class="form-control" id="designation">
           </div>
         </form>
       </div>
     </div>
     <div class="d-flex justify-content-end">
-      <button class="btn btn-primary" id="prevBtn" onclick="changeTab(-1)" disabled>Previous</button>
+      <button class="btn btn-primary" id="prevBtn" disabled>Previous</button>
       <button class="btn btn-primary ms-2" id="nextBtn" onclick="changeTab(1)">Next</button>
     </div>
     <div class="progress mt-3">
