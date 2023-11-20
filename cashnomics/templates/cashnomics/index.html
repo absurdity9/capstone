@@ -19,6 +19,9 @@
       <li class="nav-item" role="presentation">
         <a class="nav-link" id="pills-step5-tab" data-bs-toggle="pill" href="#pills-step5" role="tab" aria-controls="pills-step5" aria-selected="false">Step 3</a>
       </li>
+      <li class="nav-item" role="presentation">
+        <a class="nav-link" id="pills-step6-tab" data-bs-toggle="pill" href="#pills-step6" role="tab" aria-controls="pills-step6" aria-selected="false">Results</a>
+      </li>
     </ul>
     <!-- Tab 1 -->
     <div class="tab-content" id="pills-tabContent">
@@ -40,11 +43,16 @@
           </div>
         </form>
       </div>
-      <!-- Tab 2 -->
+      <!-- Tab 2 - cashInChart -->
       <div class="tab-content" id="pills-tabContent">
         <div class="tab-pane fade show active" id="pills-step2" role="tabpanel" aria-labelledby="pills-step1-tab">
           <h2>Information</h2>
           <p>Based on your income of £39,900 at the end of the month, you’ll recieve</p>
+          <div class="row">
+            <div class="col-md-8">
+              <canvas id="cashInChart"></canvas>
+            </div>
+          </div>
         </div>
         <!-- Tab 3 -->
       <div class="tab-pane fade" id="pills-step3" role="tabpanel" aria-labelledby="pills-step2-tab">
@@ -69,11 +77,16 @@
           </div>
         </form>
       </div>
-      <!-- Tab 4-->
+      <!-- Tab 4 - cashOutChart-->
       <div class="tab-content" id="pills-tabContent">
         <div class="tab-pane fade show active" id="pills-step4" role="tabpanel" aria-labelledby="pills-step1-tab">
           <h2>Information</h2>
           <p>Based on your income of £39,900 at the end of the month, you’ll recieve</p>
+          <div class="row">
+            <div class="col-md-8">
+              <canvas id="cashOutChart"></canvas>
+            </div>
+          </div>
         </div>
         <!-- Tab 5-->
       <div class="tab-pane fade" id="pills-step5" role="tabpanel" aria-labelledby="pills-step3-tab">
@@ -98,7 +111,19 @@
           </div>
         </form>
       </div>
+      <!-- Tab 6 - cashOutChart-->
+      <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade show active" id="pills-step6" role="tabpanel" aria-labelledby="pills-step1-tab">
+          <h2>Information</h2>
+          <p>Based on your income of £39,900 at the end of the month, you’ll recieve</p>
+          <div class="row">
+            <div class="col-md-8">
+              <canvas id="moneyMapChart"></canvas>
+            </div>
+          </div>
+        </div>
     </div>
+    
     <div class="d-flex justify-content-end">
       <button class="btn btn-primary m-2" id="prevBtn" disabled>Previous</button>
       <button class="btn btn-primary m-2" id="nextBtn">Next</button>
@@ -108,5 +133,7 @@
     </div>
   </div>
   <script src="{% static 'cashnomics/script.js' %}"></script> 
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"></script>
+  <script src="{% static 'cashnomics/chart-script.js' %}"></script> 
 
     {% endblock %}
