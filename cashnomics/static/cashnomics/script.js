@@ -1,6 +1,10 @@
+// Inputs for chart data
+const salaryInput = document.getElementById('Salary');
+
+// Inputs for user-data
+
 // Get progress bar element
 const progressBar = document.getElementById('progressBar');
-
 // Get progress pills
 const progressPills = document.querySelectorAll('.nav-pills .nav-link');
 
@@ -79,6 +83,15 @@ function updateStep(step) {
       nextButton.innerText = 'Next';
       nextButton.classList.add('m-2');
     }
+      // Add salary input value to chartData array
+    if (currentStep === 1) {
+      const salaryValue = parseInt(salaryInput.value);
+      const salaryAmount = document.getElementById('salaryAmount');
+      salaryAmount.textContent = salaryValue;
+      chartData.push(salaryValue);
+      localStorage.setItem('chartData', JSON.stringify(chartData));
+    }
+
   }
 
 // Get form steps
