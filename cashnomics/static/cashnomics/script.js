@@ -83,15 +83,29 @@ function updateStep(step) {
       nextButton.innerText = 'Next';
       nextButton.classList.add('m-2');
     }
-      // Add salary input value to chartData array
+    // Div for Form 1 tab 1
+    const salaryAmount = document.getElementById('salaryAmount');
+    const salaryValue = parseInt(salaryInput.value);
+    // Div for information container 1 tab 2
     if (currentStep === 1) {
-      const salaryValue = parseInt(salaryInput.value);
-      const salaryAmount = document.getElementById('salaryAmount');
       salaryAmount.textContent = salaryValue;
       chartData.push(salaryValue);
-      localStorage.setItem('chartData', JSON.stringify(chartData));
     }
-
+    // Div for Form 2 in tab 3
+    const costShBills = document.getElementById('cost_sh_bills').value;
+    const costTravel = document.getElementById('cost_travel').value;
+    const costGroceries = document.getElementById('cost_groceries').value;
+    const costOther = document.getElementById('cost_other').value;
+    const totalCost = parseInt(costShBills) + parseInt(costTravel) + parseInt(costGroceries) + parseInt(costOther);
+    // Div for information container 2 tab 4
+    if (currentStep === 3) {
+      const totalCostdisplay = document.getElementById('totalCosts');
+      totalCostdisplay.textContent = totalCost;
+      const cashLeftdisplay = document.getElementById('cashLeft');
+      cashLeft = salaryValue - totalCost;
+      cashLeftdisplay.textContent = cashLeft;
+      chartData.push(totalCost, cashLeft);
+    }
   }
 
 // Get form steps
