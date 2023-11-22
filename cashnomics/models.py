@@ -50,10 +50,11 @@ class UserProfile(models.Model):
 # IncomeForm Model
 class IncomeForm(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    version = models.IntegerField()
+    version = models.IntegerField(default=1) 
     salary = models.DecimalField(max_digits=10, decimal_places=2)
     income_after_tax = models.DecimalField(max_digits=10, decimal_places=2)
-    
+    date_created = models.DateTimeField(auto_now_add=True)
+
     def __str__(self):
         return f"Income Form for {self.user.username} (Version {self.version})"
 
@@ -61,14 +62,15 @@ class IncomeForm(models.Model):
 # ExpensesForm Model
 class ExpensesForm(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    version = models.IntegerField()
+    version = models.IntegerField(default=1) 
     cost_sh_bills = models.DecimalField(max_digits=10, decimal_places=2)
     cost_travel = models.DecimalField(max_digits=10, decimal_places=2)
     cost_groceries = models.DecimalField(max_digits=10, decimal_places=2)
     cost_ent = models.DecimalField(max_digits=10, decimal_places=2)
     cost_other = models.DecimalField(max_digits=10, decimal_places=2)
     money_aftercosts = models.DecimalField(max_digits=10, decimal_places=2)
-    
+    date_created = models.DateTimeField(auto_now_add=True)
+
     def __str__(self):
         return f"Expenses Form for {self.user.username} (Version {self.version})"
 
@@ -76,14 +78,15 @@ class ExpensesForm(models.Model):
 # SavingsInvestments Model
 class SavingsInvestments(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    version = models.IntegerField()
+    version = models.IntegerField(default=1) 
     savings_amt = models.DecimalField(max_digits=10, decimal_places=2)
     savings_rate = models.DecimalField(max_digits=5, decimal_places=2)
     etf_amt = models.DecimalField(max_digits=10, decimal_places=2)
     etf_rate = models.DecimalField(max_digits=5, decimal_places=2)
     money_after_y1 = models.DecimalField(max_digits=10, decimal_places=2)
     money_after_y5 = models.DecimalField(max_digits=10, decimal_places=2)
-
+    date_created = models.DateTimeField(auto_now_add=True)
+    
     def __str__(self):
         return f"Savings and Investments Form for {self.user.username} (Version {self.version})"
 
@@ -93,6 +96,7 @@ class Chart(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     chart_type = models.CharField(max_length=255)
     img_ref = models.CharField(max_length=255)
-
+    date_created = models.DateTimeField(auto_now_add=True)
+    
     def __str__(self):
         return f"Chart for {self.user.username} ({self.chart_type})"
