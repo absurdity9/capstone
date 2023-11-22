@@ -66,7 +66,6 @@ class ExpensesForm(models.Model):
     cost_sh_bills = models.DecimalField(max_digits=10, decimal_places=2)
     cost_travel = models.DecimalField(max_digits=10, decimal_places=2)
     cost_groceries = models.DecimalField(max_digits=10, decimal_places=2)
-    cost_ent = models.DecimalField(max_digits=10, decimal_places=2)
     cost_other = models.DecimalField(max_digits=10, decimal_places=2)
     money_aftercosts = models.DecimalField(max_digits=10, decimal_places=2)
     date_created = models.DateTimeField(auto_now_add=True)
@@ -97,6 +96,6 @@ class Chart(models.Model):
     chart_type = models.CharField(max_length=255)
     img_ref = models.CharField(max_length=255)
     date_created = models.DateTimeField(auto_now_add=True)
-    
+
     def __str__(self):
         return f"Chart for {self.user.username} ({self.chart_type})"
