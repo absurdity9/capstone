@@ -38,13 +38,8 @@ function calculateNetSalary(annualGrossSalary) {
     const netMonthlySalary = netAnnualSalary / 12;
   
     // Output income tax and NICs figures as monthly amounts
-    console.log("Income Tax (Monthly): £", monthlyIncomeTax.toFixed(2));
-    console.log("NICs (Monthly): £", monthlyNICs.toFixed(2));
+    //console.log("Income Tax (Monthly): £", monthlyIncomeTax.toFixed(2));
+    //console.log("NICs (Monthly): £", monthlyNICs.toFixed(2));
   
     return netMonthlySalary;
   }
-  
-  // Usage example
-  const annualGrossSalary = 50000; // Replace with your actual annual gross salary
-  const netMonthlySalary = calculateNetSalary(annualGrossSalary);
-  console.log("Net monthly salary: £", netMonthlySalary.toFixed(2));
