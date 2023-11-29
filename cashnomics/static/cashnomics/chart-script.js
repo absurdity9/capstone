@@ -1,7 +1,8 @@
+// Create the chart instance
 const ctx1 = document.getElementById('cashInChart');
 let chartData = [];
 
-new Chart(ctx1, {
+const myChart = new Chart(ctx1, {
   type: 'bar',
   data: {
     labels: ['Cash In', 'Cash Out', 'Cash Left'],
@@ -14,9 +15,9 @@ new Chart(ctx1, {
   options: {
     plugins: {
       legend: {
-          display: false
-        }
-      },
+        display: false
+      }
+    },
     responsive: true, // Enable responsiveness
     maintainAspectRatio: false, // Set to false to allow the chart to dynamically resize
     scales: {

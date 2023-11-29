@@ -30,7 +30,7 @@
         <form>
           <div class="mb-3">
             <label for="Salary" class="form-label">Salary per year (before taxes)</label>
-            <input type="Salary" class="form-control" id="Salary" aria-describedby="Salary">
+            <input type="text" class="form-control" id="Salary" aria-describedby="Salary" value="0" placeholder="0">
           </div>
           <div class="mb-3">
             <label for="Age" class="form-label">Age Group</label>
@@ -45,7 +45,8 @@
       <!-- Tab 2 - cashInChart -->
       <div class="tab-content" id="pills-tabContent">
         <div class="tab-pane fade show active" id="pills-step2" role="tabpanel" aria-labelledby="pills-step1-tab">
-          <p>Based on your income of £<span class="inline-block" id="salaryAmount"></span> per year. At the end of the month, you’ll recieve £<span class="inline-block" id="netMonthlySalaryDisplay"></span>.</p>
+          <p>Based on your income of £<span class="inline-block" id="salaryAmount"></span> per year. At the end of the month, you’ll 
+            recieve £<span class="inline-block" id="netMonthlySalaryDisplay"></span> <a class="edit" href="#"><i class="fas fa-edit"></i> Edit</a></p>
           <div class="row">
             <div class="col-md-8">
               <canvas id="cashInChart"></canvas>
@@ -60,19 +61,19 @@
         <form>
           <div class="mb-3">
             <label for="user_name" class="form-label">Cost of Shelter & Bills</label>
-            <input type="text" class="form-control" id="cost_sh_bills">
+            <input type="text" class="form-control" id="cost_sh_bills" value="0" placeholder="0">
           </div>
           <div class="mb-3">
             <label for="first_name" class="form-label">Cost of Travel</label>
-            <input type="text" class="form-control" id="cost_travel">
+            <input type="text" class="form-control" id="cost_travel" value="0" placeholder="0">
           </div>
           <div class="mb-3">
             <label for="last_name" class="form-label">Cost of Groceries</label>
-            <input type="text" class="form-control" id="cost_groceries">
+            <input type="text" class="form-control" id="cost_groceries" value="0" placeholder="0">
           </div>
           <div class="mb-3">
             <label for="last_name" class="form-label">Other Costs</label>
-            <input type="text" class="form-control" id="cost_other">
+            <input type="text" class="form-control" id="cost_other" value="0" placeholder="0">
           </div>
         </form>
       </div>
@@ -94,19 +95,19 @@
         <form>
           <div class="mb-3">
             <label for="company" class="form-label">Amount in a Savings Account</label>
-            <input type="text" class="form-control" id="amt_Savings">
+            <input type="text" class="form-control" id="amt_Savings" value="0" placeholder="0">
           </div>
           <div class="mb-3">
             <label for="experience" class="form-label">Yearly Interest % Earned</label>
-            <input type="text" class="form-control" id="yield_Savings">
+            <input type="text" class="form-control" id="yield_Savings" value="0" placeholder="0">
           </div>
           <div class="mb-3">
             <label for="designation" class="form-label">Amount in Vanguard Account</label>
-            <input type="text" class="form-control" id="amt_Vanguard">
+            <input type="text" class="form-control" id="amt_Vanguard" value="0" placeholder="0">
           </div>
           <div class="mb-3">
             <label for="designation" class="form-label">Benchmark % Return</label>
-            <input type="text" class="form-control" id="yield_Vanguard">
+            <input type="text" class="form-control" id="yield_Vanguard" value="0" placeholder="0">
           </div>
         </form>
       </div>
@@ -131,8 +132,38 @@
     <div class="progress mt-3">
       <div class="progress-bar" id="progressBar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Edit Net Salary</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <p>If you want to use another salary calculator to get a more accurate calculation of your net salary after tax, go to:
+                <a href="https://salarybot.co.uk/">Salarybot</a> or
+                <a href="https://listentotaxman.com/">Listentotaxman.</a>
+              </p>
+              <div class="mb-3">
+                <label for="netSalaryInput" class="form-label">Correct Net Salary</label>
+                <input type="text" class="form-control" id="edittedNetSalary">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary" id="saveEditsBtnn">Save Changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
   <script src="{% static 'cashnomics/script.js' %}"></script> 
   <script src="{% static 'cashnomics/chart-script.js' %}"></script> 
   <script src="{% static 'cashnomics/salary-calc-script.js' %}"></script> 

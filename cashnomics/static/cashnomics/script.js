@@ -18,13 +18,6 @@ let currentStep = 0;
 nextButton.addEventListener('click', nextStep);
 backButton.addEventListener('click', prevStep);
 
-// Progress pill click handler
-progressPills.forEach((pill, index) => {
-  pill.addEventListener('click', () => {
-    updateStep(index);
-  });
-});
-
 // Next step
 function nextStep() {
   updateStep(currentStep + 1);
@@ -34,6 +27,14 @@ function nextStep() {
 function prevStep() {
   updateStep(currentStep - 1);
 }
+
+// Progress pill click handler
+progressPills.forEach((pill, index) => {
+  pill.addEventListener('click', () => {
+    updateStep(index);
+  });
+});
+
 
 // Update step
 function updateStep(step) {
@@ -59,9 +60,8 @@ function updateStep(step) {
   } else {
     backButton.disabled = false;
   }
-    // Final step
+    // Handling buttons
   if (currentStep === formSteps.length - 1) {
-    console.log("End");
     nextButton.style.display = 'none';
     backButton.style.display = 'none';
   
@@ -84,15 +84,28 @@ function updateStep(step) {
       nextButton.innerText = 'Next';
       nextButton.classList.add('m-2');
     }
+
     // Saving Inputs Form 1 tab 1
     const salaryAmount = document.getElementById('salaryAmount'), salaryValue = parseInt(salaryInput.value);
+    let age = document.getElementById('Age').value;
+    let industry = document.getElementById('Industry').value;
     let netMonthlySalary = calculateNetSalary(salaryValue);
     let cashLeft;
+
     // Div for information container 1 tab 2
     if (currentStep === 1) {
       salaryAmount.textContent = salaryValue;
       netMonthlySalaryDisplay.textContent = netMonthlySalary.toFixed(2);
       chartData.push(netMonthlySalary);
+      // Save to LS
+      var formData = {
+        salary: salaryValue,
+        age: age,
+        industry: industry
+      };
+    
+    localStorage.setItem('IncomeFormData', JSON.stringify(formData));
+
     }
     // Saving Inputs for Form 2 in tab 3
     const costShBills = document.getElementById('cost_sh_bills').value;
@@ -114,6 +127,17 @@ function updateStep(step) {
       cashLeft = netMonthlySalary - totalCost;
       document.getElementById('cashLeftDisplay1').textContent = cashLeft.toFixed(2);
       chartData2.push(netMonthlySalary, totalCost, cashLeft);
+      // Save to LS
+      var formData = {
+        costShBills: costShBills,
+        costTravel: costTravel,
+        costGroceries: costGroceries,
+        costOther: costOther,
+        money_aftercosts: cashLeft
+    };
+    
+    localStorage.setItem('ExpensesFormData', JSON.stringify(formData));
+
     }
     // Saving inputs for Form 3 tab 4
     let amtSavings = document.getElementById('amt_Savings').value;
@@ -152,10 +176,15 @@ function updateStep(step) {
         amtVanguard = vanguardAfterYear;
       }
       chartData3.push(...capitals); // Push capitals array into chartdata3
-      
-      console.log('Savings Amounts after each year:', savingsAmounts);
-      console.log('Vanguard Amounts after each year:', vanguardAmounts);
-      console.log('Capitals after each year:', capitals);
+      // Save to LS
+      var formData = {
+        amountSavings: amtSavings,
+        interestRate: yieldSavings,
+        amountVanguard: amtVanguard,
+        benchmarkReturn: yieldVanguard
+    };
+    
+    localStorage.setItem('SavingsInvestmentsData', JSON.stringify(formData));
     
       document.getElementById('capital_Display').textContent = capitals[4];
     }
@@ -180,3 +209,40 @@ progressBar.style.width = '0%';
 progressPills[0].addEventListener('click', () => {
   updateStep(0);
 });
+
+// Get the edit icon element
+const edit = document.querySelector('.edit');
+edit.addEventListener('click', function(event) {
+  event.preventDefault();
+  const modal = new bootstrap.Modal(document.getElementById('editModal'));
+  modal.show();
+});
+
+  // Get the saveEditsBtn element
+  const saveEditsBtn = document.getElementById('saveEditsBtnn');
+
+  // Add click event listener
+  saveEditsBtn.addEventListener('click', function(event) {
+    event.preventDefault();
+
+    // Get the value from the edittedNetSalary input field
+    const edittedNetSalaryInput = document.getElementById('edittedNetSalary');
+    const newNetSalary = parseInt(edittedNetSalaryInput.value, 10); // Convert to integer
+
+    // Convert the newNetSalary to an integer and update the netMonthlySalary variable
+    netMonthlySalary = parseInt(newNetSalary, 10);
+    
+    // Update the netMonthlySalaryDisplay element in the HTML
+    const netMonthlySalaryDisplay = document.getElementById('netMonthlySalaryDisplay');
+    netMonthlySalaryDisplay.textContent = newNetSalary;
+
+    // Update the chartData array with the new value
+    chartData.pop(); // Remove the previous netMonthlySalary value
+    chartData.push(newNetSalary); // Add the new netMonthlySalary value
+    myChart.data.datasets[0].data = chartData;
+    myChart.update();
+
+    // Close the modal
+    const modal = bootstrap.Modal.getInstance(document.getElementById('editModal'));
+    modal.hide();
+  });
