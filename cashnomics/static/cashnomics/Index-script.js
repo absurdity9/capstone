@@ -68,12 +68,12 @@ function updateStep(step) {
     // Create new buttons
     const saveButton = document.createElement('a');
     saveButton.innerText = 'Save my moneymap';
-    saveButton.href = '/signup';
+    saveButton.href = '/accounts/signup/';
     saveButton.classList.add('btn', 'btn-success', 'mr-3');
   
     const exploreButton = document.createElement('a');
     exploreButton.innerText = 'Explore';
-    exploreButton.href = '/explore';
+    exploreButton.href = '/accounts/signup/';
     exploreButton.classList.add('btn', 'btn-info');
   
     // Append new buttons to the container
