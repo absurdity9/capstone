@@ -167,5 +167,10 @@
   <script src="{% static 'cashnomics/script.js' %}"></script> 
   <script src="{% static 'cashnomics/chart-script.js' %}"></script> 
   <script src="{% static 'cashnomics/salary-calc-script.js' %}"></script> 
-
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      localStorage.clear();
+      console.log('Local storage cleared.');
+    });
+</script>
     {% endblock %}
