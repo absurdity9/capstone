@@ -15,8 +15,9 @@ window.addEventListener("load", function () {
     });
 
       // Send the data to the API endpoint
-      fetch("http://127.0.0.1:8000/json_api", {
-        method: "POST",
+      if (expensesData || incomeData || savingsData || profileData) {
+        fetch("http://127.0.0.1:8000/json_api", {
+          method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
@@ -29,8 +30,13 @@ window.addEventListener("load", function () {
       })
         .then((response) => {
           if (response.ok) {
-            console.log("Data sent successfully!");
             showSuccessAlert();
+            // Clear the data from localStorage
+          localStorage.removeItem("ExpensesData");
+          localStorage.removeItem("IncomeData");
+          localStorage.removeItem("SavingsInvestmentsData");
+          localStorage.removeItem("UserProfileData");
+          console.log("Data cleared from localStorage.");
           } else {
             console.error("Failed to send data.");
           }
@@ -42,7 +48,7 @@ window.addEventListener("load", function () {
       console.log("No data found in localStorage.");
     }
   }
-);
+})
 
 function showSuccessAlert() {
   const alertBanner = document.createElement("div");

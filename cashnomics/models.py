@@ -46,7 +46,7 @@ class UserProfile(models.Model):
     industry = models.CharField(max_length=255, choices=INDUSTRY_CHOICES)
     
     def __str__(self):
-        return self.name
+        return self.username
 
 # IncomeForm Model
 class IncomeForm(models.Model):
