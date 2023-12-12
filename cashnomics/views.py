@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 import json
+from .models import ExpensesForm, IncomeForm, SavingsInvestments
 
 # Create your views here.
 
@@ -24,7 +25,14 @@ def json_api(request):
             data_string = json.dumps(data)
             user_id = request.user
             print(data_string)  # Print the JSON data as a string in the terminal
-            print(user_id)
+            # Save data to respective tables
+            expenses_data = data.get('expenses')
+            expenses_dict = json.loads(expenses_data)
+            income_data = data.get('income')
+            income_dict = json.loads(income_data)
+            if data:
+                ExpensesForm.objects.create(user=user_id, **expenses_dict)
+                IncomeForm.objects.create(user=user_id, **income_dict)
             return HttpResponse(status=200)
         except json.JSONDecodeError:
             return HttpResponse(status=400)

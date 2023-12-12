@@ -100,19 +100,23 @@ function updateStep(step) {
       // Save to LS
       var formData = {
         salary: salaryValue,
+        income_after_tax: netMonthlySalary,
+      };
+      var formData2 = {
         age: age,
         industry: industry
       };
     
-    localStorage.setItem('IncomeFormData', JSON.stringify(formData));
+    localStorage.setItem('IncomeData', JSON.stringify(formData));
+    localStorage.setItem('UserProfileData', JSON.stringify(formData2));
 
     }
     // Saving Inputs for Form 2 in tab 3
-    const costShBills = document.getElementById('cost_sh_bills').value;
-    const costTravel = document.getElementById('cost_travel').value;
-    const costGroceries = document.getElementById('cost_groceries').value;
-    const costOther = document.getElementById('cost_other').value;
-    const totalCost = parseInt(costShBills) + parseInt(costTravel) + parseInt(costGroceries) + parseInt(costOther);
+    const cost_sh_bills = document.getElementById('cost_sh_bills').value;
+    const cost_travel = document.getElementById('cost_travel').value;
+    const cost_groceries = document.getElementById('cost_groceries').value;
+    const cost_other = document.getElementById('cost_other').value;
+    const totalCost = parseInt(cost_sh_bills) + parseInt(cost_travel) + parseInt(cost_groceries) + parseInt(cost_other);
     
     cashLeft = netMonthlySalary - totalCost;
     // Focus for forms
@@ -129,14 +133,14 @@ function updateStep(step) {
       chartData2.push(netMonthlySalary, totalCost, cashLeft);
       // Save to LS
       var formData = {
-        costShBills: costShBills,
-        costTravel: costTravel,
-        costGroceries: costGroceries,
-        costOther: costOther,
+        cost_sh_bills: cost_sh_bills,
+        cost_travel: cost_travel,
+        cost_groceries: cost_groceries,
+        cost_other: cost_other,
         money_aftercosts: cashLeft
     };
     
-    localStorage.setItem('ExpensesFormData', JSON.stringify(formData));
+    localStorage.setItem('ExpensesData', JSON.stringify(formData));
 
     }
     // Saving inputs for Form 3 tab 4

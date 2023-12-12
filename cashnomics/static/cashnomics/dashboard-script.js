@@ -2,9 +2,17 @@ window.addEventListener("load", function () {
 
   if (localStorage) {
     // Retrieve data from localStorage
-    const expensesData = localStorage.getItem("ExpensesFormData");
-    const incomeData = localStorage.getItem("IncomeFormData");
+    const expensesData = localStorage.getItem("ExpensesData");
+    const incomeData = localStorage.getItem("IncomeData");
     const savingsData = localStorage.getItem("SavingsInvestmentsData");
+
+    // Log the data to be sent
+    console.log("Data to be sent:", {
+      expenses: expensesData,
+      income: incomeData,
+      savings: savingsData,
+    });
+
       // Send the data to the API endpoint
       fetch("http://127.0.0.1:8000/json_api", {
         method: "POST",

@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib import admin
 from accounts.models import CustomUser
+from django.utils import timezone
 
 class UserProfile(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
@@ -53,7 +54,7 @@ class IncomeForm(models.Model):
     version = models.IntegerField(default=1) 
     salary = models.DecimalField(max_digits=10, decimal_places=2)
     income_after_tax = models.DecimalField(max_digits=10, decimal_places=2)
-    date_created = models.DateTimeField(auto_now_add=True)
+    date_created = models.DateTimeField(default=timezone.now)    
 
     def __str__(self):
         return f"Income Form for {self.user.username} (Version {self.version})"
@@ -68,7 +69,7 @@ class ExpensesForm(models.Model):
     cost_groceries = models.DecimalField(max_digits=10, decimal_places=2)
     cost_other = models.DecimalField(max_digits=10, decimal_places=2)
     money_aftercosts = models.DecimalField(max_digits=10, decimal_places=2)
-    date_created = models.DateTimeField(auto_now_add=True)
+    date_created = models.DateTimeField(default=timezone.now)    
 
     def __str__(self):
         return f"Expenses Form for {self.user.username} (Version {self.version})"
@@ -84,7 +85,7 @@ class SavingsInvestments(models.Model):
     etf_rate = models.DecimalField(max_digits=5, decimal_places=2)
     money_after_y1 = models.DecimalField(max_digits=10, decimal_places=2)
     money_after_y5 = models.DecimalField(max_digits=10, decimal_places=2)
-    date_created = models.DateTimeField(auto_now_add=True)
+    date_created = models.DateTimeField(default=timezone.now)    
     
     def __str__(self):
         return f"Savings and Investments Form for {self.user.username} (Version {self.version})"
@@ -95,7 +96,7 @@ class Chart(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     chart_type = models.CharField(max_length=255)
     img_ref = models.CharField(max_length=255)
-    date_created = models.DateTimeField(auto_now_add=True)
-
+    date_created = models.DateTimeField(default=timezone.now)    
     def __str__(self):
         return f"Chart for {self.user.username} ({self.chart_type})"
+    
