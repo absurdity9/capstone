@@ -83,8 +83,6 @@ class SavingsInvestments(models.Model):
     savings_rate = models.DecimalField(max_digits=5, decimal_places=2)
     etf_amt = models.DecimalField(max_digits=10, decimal_places=2)
     etf_rate = models.DecimalField(max_digits=5, decimal_places=2)
-    money_after_y1 = models.DecimalField(max_digits=10, decimal_places=2)
-    money_after_y5 = models.DecimalField(max_digits=10, decimal_places=2)
     date_created = models.DateTimeField(default=timezone.now)    
     
     def __str__(self):

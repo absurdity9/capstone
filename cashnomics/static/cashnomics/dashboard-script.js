@@ -5,6 +5,7 @@ window.addEventListener("load", function () {
     const expensesData = localStorage.getItem("ExpensesData");
     const incomeData = localStorage.getItem("IncomeData");
     const savingsData = localStorage.getItem("SavingsInvestmentsData");
+    const profileData = localStorage.getItem("UserProfileData");
 
     // Log the data to be sent
     console.log("Data to be sent:", {
@@ -23,6 +24,7 @@ window.addEventListener("load", function () {
           expenses: expensesData,
           income: incomeData,
           savings: savingsData,
+          profile: profileData,
         }),
       })
         .then((response) => {

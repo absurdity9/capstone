@@ -182,10 +182,10 @@ function updateStep(step) {
       chartData3.push(...capitals); // Push capitals array into chartdata3
       // Save to LS
       var formData = {
-        amountSavings: amtSavings,
-        interestRate: yieldSavings,
-        amountVanguard: amtVanguard,
-        benchmarkReturn: yieldVanguard
+        savings_amt: amtSavings,
+        savings_rate: yieldSavings,
+        etf_amt: amtVanguard,
+        etf_rate: yieldVanguard
     };
     
     localStorage.setItem('SavingsInvestmentsData', JSON.stringify(formData));
