@@ -22,7 +22,9 @@ def json_api(request):
         try:
             data = json.loads(request.body)
             data_string = json.dumps(data)
+            user_id = request.user
             print(data_string)  # Print the JSON data as a string in the terminal
+            print(user_id)
             return HttpResponse(status=200)
         except json.JSONDecodeError:
             return HttpResponse(status=400)
