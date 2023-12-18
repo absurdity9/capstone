@@ -51,7 +51,7 @@ class UserProfile(models.Model):
 # IncomeForm Model
 class IncomeForm(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    version = models.IntegerField(default=1) 
+    version = models.CharField(max_length=200, default='1')
     salary = models.DecimalField(max_digits=10, decimal_places=2)
     income_after_tax = models.DecimalField(max_digits=10, decimal_places=2)
     date_created = models.DateTimeField(default=timezone.now)    
@@ -63,7 +63,7 @@ class IncomeForm(models.Model):
 # ExpensesForm Model
 class ExpensesForm(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    version = models.IntegerField(default=1) 
+    version = models.CharField(max_length=200, default='1')
     cost_sh_bills = models.DecimalField(max_digits=10, decimal_places=2)
     cost_travel = models.DecimalField(max_digits=10, decimal_places=2)
     cost_groceries = models.DecimalField(max_digits=10, decimal_places=2)
@@ -78,7 +78,7 @@ class ExpensesForm(models.Model):
 # SavingsInvestments Model
 class SavingsInvestments(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    version = models.IntegerField(default=1) 
+    version = models.CharField(max_length=200, default='1')
     savings_amt = models.DecimalField(max_digits=10, decimal_places=2)
     savings_rate = models.DecimalField(max_digits=5, decimal_places=2)
     etf_amt = models.DecimalField(max_digits=10, decimal_places=2)
