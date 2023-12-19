@@ -48,22 +48,25 @@ class UserProfile(models.Model):
     def __str__(self):
         return self.username
 
+# FinancialModel Model
+class FinancialModel(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='financial_model')
+    model_name = models.CharField(max_length=200, default='Default Model Name')
+    date_created = models.DateTimeField(default=timezone.now)    
+
 # IncomeForm Model
 class IncomeForm(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    version = models.CharField(max_length=200, default='1')
+    financial_model = models.ForeignKey(FinancialModel, on_delete=models.CASCADE, related_name='incomes')
     salary = models.DecimalField(max_digits=10, decimal_places=2)
     income_after_tax = models.DecimalField(max_digits=10, decimal_places=2)
     date_created = models.DateTimeField(default=timezone.now)    
 
     def __str__(self):
-        return f"Income Form for {self.user.username} (Version {self.version})"
-
+        return f"Income Form for {self.financial_model.user.username}"
 
 # ExpensesForm Model
 class ExpensesForm(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    version = models.CharField(max_length=200, default='1')
+    financial_model = models.ForeignKey(FinancialModel, on_delete=models.CASCADE, related_name='expenses')
     cost_sh_bills = models.DecimalField(max_digits=10, decimal_places=2)
     cost_travel = models.DecimalField(max_digits=10, decimal_places=2)
     cost_groceries = models.DecimalField(max_digits=10, decimal_places=2)
@@ -72,13 +75,11 @@ class ExpensesForm(models.Model):
     date_created = models.DateTimeField(default=timezone.now)    
 
     def __str__(self):
-        return f"Expenses Form for {self.user.username} (Version {self.version})"
-
+        return f"Expenses Form for {self.financial_model.user.username}"
 
 # SavingsInvestments Model
 class SavingsInvestments(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    version = models.CharField(max_length=200, default='1')
+    financial_model = models.ForeignKey(FinancialModel, on_delete=models.CASCADE, related_name='savings')
     savings_amt = models.DecimalField(max_digits=10, decimal_places=2)
     savings_rate = models.DecimalField(max_digits=5, decimal_places=2)
     etf_amt = models.DecimalField(max_digits=10, decimal_places=2)
@@ -86,15 +87,4 @@ class SavingsInvestments(models.Model):
     date_created = models.DateTimeField(default=timezone.now)    
     
     def __str__(self):
-        return f"Savings and Investments Form for {self.user.username} (Version {self.version})"
-
-
-# Chart Model
-class Chart(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    chart_type = models.CharField(max_length=255)
-    img_ref = models.CharField(max_length=255)
-    date_created = models.DateTimeField(default=timezone.now)    
-    def __str__(self):
-        return f"Chart for {self.user.username} ({self.chart_type})"
-    
+        return f"Savings and Investments Form for {self.financial_model.user.username}"
