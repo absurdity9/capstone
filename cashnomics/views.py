@@ -14,8 +14,21 @@ def index(request):
 
 @login_required
 def dashboard(request):
-    return render(request, "cashnomics/dashboard.html", {
-    })
+    user = request.user
+    financial_models = FinancialModel.objects.filter(user=user)
+    financial_model_count = FinancialModel.objects.filter(user=user).count()
+
+    income_forms = IncomeForm.objects.filter(financial_model__in=financial_models)
+    expenses_forms = ExpensesForm.objects.filter(financial_model__in=financial_models)
+    savings_investments = SavingsInvestments.objects.filter(financial_model__in=financial_models)
+
+    context = {
+        'financial_model_count': financial_model_count,
+        'income_forms': income_forms,
+        'expenses_forms': expenses_forms,
+        'savings_investments': savings_investments
+        }
+    return render(request, "cashnomics/dashboard.html", context)
 
 @csrf_exempt
 def json_api(request):
