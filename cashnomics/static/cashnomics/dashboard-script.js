@@ -1,5 +1,16 @@
 window.addEventListener("load", function () {
 
+  var jsonData = JSON.parse(document.getElementById('financial_model_data').textContent);
+
+  var data = JSON.parse(jsonData);
+
+  var incomeForms = data["2"]["income_forms"];
+
+  // Output each item in the "income_forms" array
+  incomeForms.forEach(function(form) {
+    console.log(form);
+  });
+  
   if (localStorage) {
     // Retrieve data from localStorage
     const expensesData = localStorage.getItem("ExpensesData");
@@ -58,3 +69,5 @@ function showSuccessAlert() {
   const container = document.querySelector(".container");
   container.prepend(alertBanner);
 }
+//var test = JSON.parse('{{ financial_model_data|escapejs|safe }}');
+//console.log(test);

@@ -13,9 +13,9 @@
   <div class="row">
     <div class="col">
       <p>You have {{financial_model_count}} financial model(s) </p>
-      {% for income_form in income_forms %}
-    <p>Income After Tax: {{ income_form.income_after_tax }}</p>
-{% endfor %}
+      <p> {{financial_model_data}}</p>
+      {{ financial_model_data | json_script:"financial_model_data" }}
+      
       <!-- <canvas id="cashFlowChart"></canvas>
     </div>
     <div class="col">

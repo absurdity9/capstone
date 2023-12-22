@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 import json
+import simplejson
+from decimal import Decimal
 from .models import ExpensesForm, IncomeForm, SavingsInvestments, UserProfile, CustomUser, FinancialModel
 
 # Create your views here.
@@ -16,18 +18,33 @@ def index(request):
 def dashboard(request):
     user = request.user
     financial_models = FinancialModel.objects.filter(user=user)
-    financial_model_count = FinancialModel.objects.filter(user=user).count()
+    financial_model_count = financial_models.count()
 
-    income_forms = IncomeForm.objects.filter(financial_model__in=financial_models)
-    expenses_forms = ExpensesForm.objects.filter(financial_model__in=financial_models)
-    savings_investments = SavingsInvestments.objects.filter(financial_model__in=financial_models)
+    data = {}
+    for model in financial_models:
+        income_forms = IncomeForm.objects.filter(financial_model=model).values()
+        expenses_forms = ExpensesForm.objects.filter(financial_model=model).values()
+        savings_investments = SavingsInvestments.objects.filter(financial_model=model).values()
 
+        income_forms = [{k: float(v) if isinstance(v, Decimal) else v for k, v in form.items()} for form in income_forms]
+        expenses_forms = [{k: float(v) if isinstance(v, Decimal) else v for k, v in form.items()} for form in expenses_forms]
+        savings_investments = [{k: float(v) if isinstance(v, Decimal) else v for k, v in form.items()} for form in savings_investments]
+
+        model_data = {
+            'income_forms': income_forms,
+            'expenses_forms': expenses_forms,
+            'savings_investments': savings_investments
+        }
+
+        data[model.id] = model_data
+
+    json_data = json.dumps(data)
+
+    print(json_data)
     context = {
         'financial_model_count': financial_model_count,
-        'income_forms': income_forms,
-        'expenses_forms': expenses_forms,
-        'savings_investments': savings_investments
-        }
+        'financial_model_data': json_data
+    }
     return render(request, "cashnomics/dashboard.html", context)
 
 @csrf_exempt

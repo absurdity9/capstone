@@ -57,9 +57,8 @@ class FinancialModel(models.Model):
 # IncomeForm Model
 class IncomeForm(models.Model):
     financial_model = models.ForeignKey(FinancialModel, on_delete=models.CASCADE, related_name='incomes')
-    salary = models.DecimalField(max_digits=10, decimal_places=2)
-    income_after_tax = models.DecimalField(max_digits=10, decimal_places=2)
-    date_created = models.DateTimeField(default=timezone.now)    
+    salary = models.FloatField()
+    income_after_tax = models.FloatField()
 
     def __str__(self):
         return f"Income Form for {self.financial_model.user.username}"
@@ -67,12 +66,11 @@ class IncomeForm(models.Model):
 # ExpensesForm Model
 class ExpensesForm(models.Model):
     financial_model = models.ForeignKey(FinancialModel, on_delete=models.CASCADE, related_name='expenses')
-    cost_sh_bills = models.DecimalField(max_digits=10, decimal_places=2)
-    cost_travel = models.DecimalField(max_digits=10, decimal_places=2)
-    cost_groceries = models.DecimalField(max_digits=10, decimal_places=2)
-    cost_other = models.DecimalField(max_digits=10, decimal_places=2)
-    money_aftercosts = models.DecimalField(max_digits=10, decimal_places=2)
-    date_created = models.DateTimeField(default=timezone.now)    
+    cost_sh_bills = models.FloatField()
+    cost_travel = models.FloatField()
+    cost_groceries = models.FloatField()
+    cost_other = models.FloatField()
+    money_aftercosts = models.FloatField()
 
     def __str__(self):
         return f"Expenses Form for {self.financial_model.user.username}"
@@ -80,11 +78,10 @@ class ExpensesForm(models.Model):
 # SavingsInvestments Model
 class SavingsInvestments(models.Model):
     financial_model = models.ForeignKey(FinancialModel, on_delete=models.CASCADE, related_name='savings')
-    savings_amt = models.DecimalField(max_digits=10, decimal_places=2)
-    savings_rate = models.DecimalField(max_digits=5, decimal_places=2)
-    etf_amt = models.DecimalField(max_digits=10, decimal_places=2)
-    etf_rate = models.DecimalField(max_digits=5, decimal_places=2)
-    date_created = models.DateTimeField(default=timezone.now)    
+    savings_amt = models.FloatField()
+    savings_rate = models.FloatField()
+    etf_amt = models.FloatField()
+    etf_rate = models.FloatField()
     
     def __str__(self):
         return f"Savings and Investments Form for {self.financial_model.user.username}"
