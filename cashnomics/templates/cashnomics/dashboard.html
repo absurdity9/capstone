@@ -28,24 +28,36 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
   <script src="{% static 'cashnomics/dashboard-script.js' %}"></script> 
-  <!-- <script src="{% static 'cashnomics/chart-script.js' %}"></script> 
   <script>
 
-   // Push numbers into chartData1 and chartData2
-   const numbers1 = [2, 4, 6];
-   const numbers2 = [1, 3, 5];
+// Create the chart instance
+const ctx1 = document.getElementById('cashInChart');
+let chartData = [];
 
-   numbers1.forEach(number => {
-     chartData2.push(number);
-   });
-
-   numbers2.forEach(number => {
-     chartData3.push(number);
-   });
-
-   // Update the charts
-   new Chart(ctx2).update();
-   new Chart(ctx3).update();
-
+const myChart = new Chart(ctx1, {
+  type: 'bar',
+  data: {
+    labels: ['Cash In', 'Cash Out', 'Cash Left'],
+    datasets: [{
+      data: chartData,
+      backgroundColor: ['#FF6384'],
+      borderWidth: 1,
+    }]
+  },
+  options: {
+    plugins: {
+      legend: {
+        display: false
+      }
+    },
+    responsive: true, // Enable responsiveness
+    maintainAspectRatio: false, // Set to false to allow the chart to dynamically resize
+    scales: {
+      y: {
+        beginAtZero: true
+      }
+    }
+  }
+});
   </script> -->
     {% endblock %}
