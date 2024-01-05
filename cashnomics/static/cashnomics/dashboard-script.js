@@ -1,5 +1,6 @@
 window.addEventListener("load", function () {
-  // Access the financial models from API Jason
+  // Access the data from API Jason
+  const financialModelCount = {{ financial_model_count }};
   var jsonData = JSON.parse(document.getElementById('financial_model_data').textContent);
   var data = JSON.parse(jsonData);
   // Access the information inside the data object
