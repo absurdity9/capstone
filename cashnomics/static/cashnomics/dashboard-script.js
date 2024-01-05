@@ -24,6 +24,9 @@ window.addEventListener("load", function () {
     var etfAmount = savingsInvestmentsData.etf_amt;
     var etfRate = savingsInvestmentsData.etf_rate;
 
+    cashData.push(incomeAfterTax);
+    updateChart();
+
     console.log('Model ID:', modelId);
     console.log('Income After Tax:', incomeAfterTax);
     console.log('Expense Cost - Sh Bills:', expenseCostShBills);
@@ -36,6 +39,9 @@ window.addEventListener("load", function () {
     console.log('ETF Amount:', etfAmount);
     console.log('ETF Rate:', etfRate);
   }
+
+  console.log('cashData:', cashData);
+
 
   if (localStorage) {
     // Retrieve data from localStorage
@@ -85,6 +91,7 @@ window.addEventListener("load", function () {
       console.log("No data found in localStorage.");
     }
   }
+
 })
 
 function showSuccessAlert() {
@@ -95,5 +102,3 @@ function showSuccessAlert() {
   const container = document.querySelector(".container");
   container.prepend(alertBanner);
 }
-
-  // Parse the JSON data

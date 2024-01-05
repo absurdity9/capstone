@@ -9,13 +9,17 @@
   <div class="alert alert-success d-none" role="alert">
     Your cashnomics chart has been saved!
   </div>
-
-  <div class="row">
-    <div class="col">
-      <p>You have {{financial_model_count}} financial model(s) </p>
-      <p> {{financial_model_data}}</p>
-      {{ financial_model_data | json_script:"financial_model_data" }}
-      
+  <div class="col">
+    <div class="row">
+        <p>You have {{financial_model_count}} financial model(s) </p>
+        <p> {{financial_model_data}}</p>
+        {{ financial_model_data | json_script:"financial_model_data" }}
+    </div>
+    
+    <div class="row">
+      <div class="col-md-8">
+        <canvas id="cashChart"></canvas>
+      </div>
     </div>
   </div>
 
