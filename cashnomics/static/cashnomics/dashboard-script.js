@@ -1,16 +1,42 @@
 window.addEventListener("load", function () {
-
+  // Access the financial models from API Jason
   var jsonData = JSON.parse(document.getElementById('financial_model_data').textContent);
-
   var data = JSON.parse(jsonData);
+  // Access the information inside the data object
+  for (var modelId in data) {
+    var modelData = data[modelId];
+    var incomeForms = modelData.income_forms;
+    var expensesForms = modelData.expenses_forms;
+    var savingsInvestments = modelData.savings_investments;
 
-  var incomeForms = data["2"]["income_forms"];
+    var incomeAfterTax = incomeForms[0].income_after_tax;
+    var expensesFormData = expensesForms[0];
+    var savingsInvestmentsData = savingsInvestments[0];
 
-  // Output each item in the "income_forms" array
-  incomeForms.forEach(function(form) {
-    console.log(form);
-  });
-  
+    var expenseCostShBills = expensesFormData.cost_sh_bills;
+    var expenseCostTravel = expensesFormData.cost_travel;
+    var expenseCostGroceries = expensesFormData.cost_groceries;
+    var expenseCostOther = expensesFormData.cost_other;
+    var expenseMoneyAfterCosts = expensesFormData.money_aftercosts;
+
+    var savingsAmount = savingsInvestmentsData.savings_amt;
+    var savingsRate = savingsInvestmentsData.savings_rate;
+    var etfAmount = savingsInvestmentsData.etf_amt;
+    var etfRate = savingsInvestmentsData.etf_rate;
+
+    console.log('Model ID:', modelId);
+    console.log('Income After Tax:', incomeAfterTax);
+    console.log('Expense Cost - Sh Bills:', expenseCostShBills);
+    console.log('Expense Cost - Travel:', expenseCostTravel);
+    console.log('Expense Cost - Groceries:', expenseCostGroceries);
+    console.log('Expense Cost - Other:', expenseCostOther);
+    console.log('Expense Money After Costs:', expenseMoneyAfterCosts);
+    console.log('Savings Amount:', savingsAmount);
+    console.log('Savings Rate:', savingsRate);
+    console.log('ETF Amount:', etfAmount);
+    console.log('ETF Rate:', etfRate);
+  }
+
   if (localStorage) {
     // Retrieve data from localStorage
     const expensesData = localStorage.getItem("ExpensesData");
@@ -69,5 +95,5 @@ function showSuccessAlert() {
   const container = document.querySelector(".container");
   container.prepend(alertBanner);
 }
-//var test = JSON.parse('{{ financial_model_data|escapejs|safe }}');
-//console.log(test);
+
+  // Parse the JSON data
