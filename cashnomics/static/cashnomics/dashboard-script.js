@@ -16,16 +16,25 @@ window.addEventListener("load", function () {
 
       // Extract the necessary data for the chart
       const incomeAfterTax = modelData.income_forms[0].income_after_tax;
-      const expenseCostShBills = modelData.expenses_forms[0].cost_sh_bills;
-      console.log("Income after tax for model", i+1, ":", incomeAfterTax);
+      const expensesForms = modelData.expenses_forms;
+    
+      let totalCost = 0;
+      
+      for (let j = 0; j < expensesForms.length; j++) {
+        const expenseCost = expensesForms[j].cost_sh_bills;
+        totalCost += expenseCost;
+      }
+
+      const cashLeft = incomeAfterTax - totalCost;
+
       // Create the chart instance
       const ctx = document.getElementById(`chart${i}`).getContext('2d');
       const chart = new Chart(ctx, {
         type: 'bar',
         data: {
-          labels: ['Income After Tax'],
+          labels: ['Income After Tax', 'Total Cost', 'Cash Left'],
           datasets: [{
-            data: [incomeAfterTax],
+            data: [incomeAfterTax, totalCost, cashLeft],
             backgroundColor: '#FF6384',
             borderWidth: 1,
           }]
