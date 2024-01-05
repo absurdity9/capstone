@@ -15,10 +15,9 @@
         <p> {{financial_model_data}}</p>
         {{ financial_model_data | json_script:"financial_model_data" }}
     </div>
-    
+
     <div class="row">
-      <div class="col-md-8">
-        <canvas id="cashChart"></canvas>
+      <div class="col-md-8" id="chartContainer">
       </div>
     </div>
   </div>
