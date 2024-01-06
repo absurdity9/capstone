@@ -5,37 +5,79 @@ window.addEventListener("load", function () {
   const financialModelCount = Object.keys(data).length;
   console.log("No of models:",financialModelCount)
 
-    for (let i = 0; i < financialModelCount; i++) {
-      // Create a canvas element for each chart
-      const canvas = document.createElement('canvas');
-      canvas.id = `chart${i}`;
-      document.getElementById('chartContainer').appendChild(canvas);
-      // Get the data for the current financial model
-      const modelId = Object.keys(data)[i];
-      const modelData = data[modelId];
+for (let i = 0; i < financialModelCount; i++) {
+  // Get the data for the current financial model
+  const modelId = Object.keys(data)[i];
+  const modelData = data[modelId];
 
-      // Extract the necessary data for the chart
-      const incomeAfterTax = modelData.income_forms[0].income_after_tax;
-      const expensesForms = modelData.expenses_forms;
-    
-      let totalCost = 0;
-      
-      for (let j = 0; j < expensesForms.length; j++) {
-        const expenseCost = expensesForms[j].cost_sh_bills;
-        totalCost += expenseCost;
-      }
+  // Extract the necessary data for the chart
+  const incomeAfterTax = modelData.income_forms[0].income_after_tax;
+  const expensesForms = modelData.expenses_forms;
+  const savingsInvestments = modelData.savings_investments;
 
-      const cashLeft = incomeAfterTax - totalCost;
+  let totalCost = 0;
+
+  for (let j = 0; j < expensesForms.length; j++) {
+    const expenseCost = expensesForms[j].cost_sh_bills;
+    totalCost += expenseCost;
+  }
+
+  const cashLeft = incomeAfterTax - totalCost;
+
+  // Extract savings and ETF data
+  const years = 5; // Number of years
+  const savingsAccumulated = [];
+  const etfAccumulated = [];
+  const capital = []; // Array to store capital values
+  let capital = amtSavings + amtVanguard; // Initial capital
+  const savingsAmt = savingsInvestments[0].savings_amt;
+  const etfAmt = savingsInvestments[0].etf_amt;
+  const etfRate = savingsInvestments[0].etf_rate;
+  const savingsRate = savingsInvestments[0].savings_rate;
+
+  // Print the savings and ETF data in the console
+  console.log(`Model ID: ${modelId}`);
+  console.log(`Savings Amount: ${savingsAmt}`);
+  console.log(`ETF Amount: ${etfAmt}`);
+  console.log(`ETF Rate: ${etfRate}`);
+  console.log(`Savings Rate: ${savingsRate}`);
+
+  // Create a container div for each chart and model information
+  const container = document.createElement('div');
+  container.classList.add('chart-container');
+
+  // Create a canvas element for each chart
+  const canvas = document.createElement('canvas');
+  canvas.id = `chart${i}`;
+  canvas.classList.add('mb-5');
+  container.appendChild(canvas);
+
+  // Get the model name and date created
+  const modelName = modelData.model_info.model_name;
+  const dateCreated = modelData.model_info.date_created;
+
+  // Create a heading element for the model name
+  const modelNameHeading = document.createElement('h3');
+  modelNameHeading.textContent = `${modelName}`;
+  container.insertBefore(modelNameHeading, canvas);
+
+  // Create a paragraph element for the date created
+  const dateCreatedParagraph = document.createElement('p');
+  dateCreatedParagraph.textContent = `Created on: ${dateCreated}`;
+  container.insertBefore(dateCreatedParagraph, canvas);
+
+  // Append the container to the chartContainer element
+  document.getElementById('chartContainer').appendChild(container);
 
       // Create the chart instance
       const ctx = document.getElementById(`chart${i}`).getContext('2d');
       const chart = new Chart(ctx, {
         type: 'bar',
         data: {
-          labels: ['Income After Tax', 'Total Cost', 'Cash Left'],
+          labels: ['Cash In', 'Cash Out', 'Cash Left'],
           datasets: [{
             data: [incomeAfterTax, totalCost, cashLeft],
-            backgroundColor: '#FF6384',
+            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
             borderWidth: 1,
           }]
         },

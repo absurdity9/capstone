@@ -31,6 +31,11 @@ def dashboard(request):
         savings_investments = [{k: float(v) if isinstance(v, Decimal) else v for k, v in form.items()} for form in savings_investments]
 
         model_data = {
+            'model_info': {
+                'model_id': model.id,
+                'model_name': model.model_name,
+                'date_created': model.date_created.strftime('%Y-%m-%d %H:%M:%S')
+            },
             'income_forms': income_forms,
             'expenses_forms': expenses_forms,
             'savings_investments': savings_investments
@@ -40,7 +45,6 @@ def dashboard(request):
 
     json_data = json.dumps(data)
 
-    print(json_data)
     context = {
         'financial_model_count': financial_model_count,
         'financial_model_data': json_data
