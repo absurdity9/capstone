@@ -25,22 +25,34 @@ for (let i = 0; i < financialModelCount; i++) {
   const cashLeft = incomeAfterTax - totalCost;
 
   // Extract savings and ETF data
-  const years = 5; // Number of years
-  const savingsAccumulated = [];
-  const etfAccumulated = [];
-  const capital = []; // Array to store capital values
-  let capital = amtSavings + amtVanguard; // Initial capital
-  const savingsAmt = savingsInvestments[0].savings_amt;
-  const etfAmt = savingsInvestments[0].etf_amt;
-  const etfRate = savingsInvestments[0].etf_rate;
-  const savingsRate = savingsInvestments[0].savings_rate;
+  const savingsAmt = modelData.savings_investments[0].savings_amt;
+  const etfAmt = modelData.savings_investments[0].etf_amt;
+  const etfRate = modelData.savings_investments[0].etf_rate;
+  const savingsRate = modelData.savings_investments[0].savings_rate;
 
-  // Print the savings and ETF data in the console
+  let savingsAccumulated = 0;
+  let etfAccumulated = 0;
+  let capitals = []; // Array to store capital values
+
+  for (let year = 1; year <= 5; year++) {
+    // Calculate savings accumulated and ETF accumulated for the current year
+    const savingsForYear = savingsAmt * savingsRate;
+    const etfForYear = etfAmt * etfRate;
+
+    // Add the savings accumulated and ETF accumulated to the respective arrays
+    savingsAccumulated += savingsForYear;
+    etfAccumulated += etfForYear;
+
+    // Calculate the capital for the current year
+    const capital = savingsAccumulated + etfAccumulated;
+
+    // Store the capital value for the current year
+    capitals.push(capital);
+  }
+
+  // Print the capitals for each year in the console
   console.log(`Model ID: ${modelId}`);
-  console.log(`Savings Amount: ${savingsAmt}`);
-  console.log(`ETF Amount: ${etfAmt}`);
-  console.log(`ETF Rate: ${etfRate}`);
-  console.log(`Savings Rate: ${savingsRate}`);
+  console.log(`Capitals after each year:`, capitals);
 
   // Create a container div for each chart and model information
   const container = document.createElement('div');
