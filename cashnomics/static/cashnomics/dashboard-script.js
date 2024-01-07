@@ -32,47 +32,55 @@ window.addEventListener("load", function () {
       modelCapitals.push(capital);
     }
 
-    // Print the capitals for each year in the console
-    console.log(`Model ID: ${modelId}`); console.log(`Capitals after each year:`, modelCapitals);
-
-    const container = document.createElement('div');    // Create a container div for each chart and model information
+    const container = document.createElement('div');
     container.classList.add('chart-container');
     
-    const modelName = modelData.model_info.model_name;     // Get the model name and date created
+    const modelName = modelData.model_info.model_name;
     const dateCreated = modelData.model_info.date_created;
     
-    const columnDiv = document.createElement('div');    // Create a new div for the heading and paragraph
-    columnDiv.classList.add('col-12');    // Add 'col-12' class for full width
+    const columnDiv = document.createElement('div');
+    columnDiv.classList.add('col-12', 'd-flex', 'flex-column'); // Add 'flex-column' class
     
-    const modelNameHeading = document.createElement('h3');     // Create a heading element for the model name
+    const modelNameEditDiv = document.createElement('div'); // Create a div to hold the model name and edit button
+    modelNameEditDiv.classList.add('d-flex');
+    
+    const modelNameHeading = document.createElement('h3');
     modelNameHeading.textContent = `${modelName}`;
-    columnDiv.appendChild(modelNameHeading);
+    modelNameEditDiv.appendChild(modelNameHeading);
     
-    const dateCreatedParagraph = document.createElement('p');     // Create a paragraph element for the date created
+    const editButton = document.createElement('button');
+    editButton.classList.add('btn', 'btn-secondary', 'ml-2');
+    editButton.textContent = 'Edit Model';
+    modelNameEditDiv.appendChild(editButton);
+    
+    columnDiv.appendChild(modelNameEditDiv);
+    
+    const dateCreatedParagraph = document.createElement('p');
     dateCreatedParagraph.textContent = `Created on: ${dateCreated}`;
     columnDiv.appendChild(dateCreatedParagraph);
     
-    container.appendChild(columnDiv);    // Append the column div to the container
+    container.appendChild(columnDiv);
     
-    const chartDiv = document.createElement('div');    // Create a new div for the charts
-    chartDiv.classList.add('chart-flex-container');    // Add a class for flex display
-    chartDiv.style.display = 'flex';    // Add inline style for display:flex
+    const chartDiv = document.createElement('div');
+    chartDiv.classList.add('chart-flex-container');
+    chartDiv.style.display = 'flex';
     
-    const incomeCanvas = document.createElement('canvas');     // Create a canvas element for the income chart
+    const incomeCanvas = document.createElement('canvas');
     incomeCanvas.id = `incomeChart${i}`;
     incomeCanvas.classList.add('mb-5');
     incomeCanvas.classList.add('mr-5');
     chartDiv.appendChild(incomeCanvas);
     
-    const savingsCanvas = document.createElement('canvas');     // Create a canvas element for the savings chart
+    const savingsCanvas = document.createElement('canvas');
     savingsCanvas.id = `savingsChart${i}`;
     savingsCanvas.classList.add('mb-5');
     savingsCanvas.classList.add('mr-5');
     chartDiv.appendChild(savingsCanvas);
     
-    container.appendChild(chartDiv);    // Append the chart div to the container
+    container.appendChild(chartDiv);
     
-    document.getElementById('chartContainer').appendChild(container);     // Append the container to the chartContainer element
+    document.getElementById('chartContainer').appendChild(container);
+    
     // Destroy the previous chart instance if it exists (for the savings chart)
     if (window.savingsChartInstances && window.savingsChartInstances[i]) {
       window.savingsChartInstances[i].destroy();
