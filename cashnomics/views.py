@@ -90,3 +90,48 @@ def json_api(request):
 def ranking(request):
     return render(request, "cashnomics/ranking.html", {
     })
+
+from django.shortcuts import get_object_or_404
+from django.http import HttpResponse
+
+def update(request, financial_model_id):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            user = request.user  # Assuming 'request.user' is a valid user instance
+            
+            # Retrieve the FinancialModel instance using the provided ID
+            financial_model = get_object_or_404(FinancialModel, id=financial_model_id, user=user)
+
+            # Update the model_name if it exists in the JSON data
+            model_name = data.get('model_name')
+            if model_name:
+                financial_model.model_name = model_name
+                financial_model.save()
+
+            # Update the existing instances with the new data
+            expenses_data = data.get('expenses')
+            if expenses_data:
+                expenses_dict = json.loads(expenses_data)
+                ExpensesForm.objects.update_or_create(financial_model=financial_model, defaults=expenses_dict)
+
+            income_data = data.get('income')
+            if income_data:
+                income_dict = json.loads(income_data)
+                IncomeForm.objects.update_or_create(financial_model=financial_model, defaults=income_dict)
+
+            profile_data = data.get('profile')
+            if profile_data:
+                profile_dict = json.loads(profile_data)
+                UserProfile.objects.update_or_create(user=user, defaults=profile_dict)
+
+            savings_data = data.get('savings')
+            if savings_data:
+                savings_dict = json.loads(savings_data)
+                SavingsInvestments.objects.update_or_create(financial_model=financial_model, defaults=savings_dict)
+
+            return HttpResponse(status=200)
+        except json.JSONDecodeError:
+            return HttpResponse(status=400)
+
+    return HttpResponse(status=405)
