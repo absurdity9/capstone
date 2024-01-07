@@ -14,6 +14,10 @@ def index(request):
     return render(request, "cashnomics/index.html", {
     })
 
+def add(request):
+    return render(request, "cashnomics/add.html", {
+    })
+
 @login_required
 def dashboard(request):
     user = request.user
