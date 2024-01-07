@@ -190,7 +190,7 @@ window.addEventListener("load", function () {
           localStorage.removeItem("IncomeData");
           localStorage.removeItem("SavingsInvestmentsData");
           localStorage.removeItem("UserProfileData");
-          console.log("Data cleared from localStorage.");
+          location.reload();
           } else {
             console.error("Failed to send data.");
           }
