@@ -1,34 +1,40 @@
 {% extends "base.html" %}
 {% load static %}
+
 {% block body %}
+<link rel="stylesheet" type="text/css" href="{% static 'cashnomics/styles.css' %}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
 
 <div class="container">
-    
-<h1>Dashboard</h1>
-<div class="container">
-  <div class="alert alert-success d-none" role="alert">
-    Your cashnomics chart has been saved!
+  <div class="title-container d-flex justify-content-between">
+    <h1>Dashboard</h1>
+    <button class="btn btn-primary">
+      <i class="bi bi-plus"></i> Add Model
+    </button>
   </div>
-  <div class="col">
-    <div class="row">
-        <p>You have {{financial_model_count}} financial model(s) </p>
+
+  <div class="container">
+    <div class="alert alert-success d-none" role="alert">
+      Your cashnomics chart has been saved!
+    </div>
+
+    <div class="col">
+      <div class="row">
+        <p>You have {{ financial_model_count }} financial model(s)</p>
         {{ financial_model_data | json_script:"financial_model_data" }}
-    </div>
+      </div>
 
-    <div class="row">
-      <div class="col-md-6" id="chartContainer"></div>
-      <div class="col-md-6" id="SavingschartContainer"></div>
-    </div>
-
+      <div class="row">
+        <div class="col-md-6" id="chartContainer"></div>
+      </div>
     </div>
   </div>
-
 </div>
-</div>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-  <script src="{% static 'cashnomics/dashboard-script.js' %}"></script> 
-  <script src="{% static 'cashnomics/dashboard-charts.js' %}"></script> 
-  <script src="{% static 'cashnomics/salary-calc-script.js' %}"></script> 
 
-    {% endblock %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script src="{% static 'cashnomics/dashboard-script.js' %}"></script> 
+<script src="{% static 'cashnomics/dashboard-charts.js' %}"></script> 
+<script src="{% static 'cashnomics/salary-calc-script.js' %}"></script> 
+
+{% endblock %}

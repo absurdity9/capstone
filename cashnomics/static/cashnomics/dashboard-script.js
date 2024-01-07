@@ -38,27 +38,41 @@ window.addEventListener("load", function () {
     const container = document.createElement('div');    // Create a container div for each chart and model information
     container.classList.add('chart-container');
     
+    const modelName = modelData.model_info.model_name;     // Get the model name and date created
+    const dateCreated = modelData.model_info.date_created;
+    
+    const columnDiv = document.createElement('div');    // Create a new div for the heading and paragraph
+    columnDiv.classList.add('col-12');    // Add 'col-12' class for full width
+    
+    const modelNameHeading = document.createElement('h3');     // Create a heading element for the model name
+    modelNameHeading.textContent = `${modelName}`;
+    columnDiv.appendChild(modelNameHeading);
+    
+    const dateCreatedParagraph = document.createElement('p');     // Create a paragraph element for the date created
+    dateCreatedParagraph.textContent = `Created on: ${dateCreated}`;
+    columnDiv.appendChild(dateCreatedParagraph);
+    
+    container.appendChild(columnDiv);    // Append the column div to the container
+    
+    const chartDiv = document.createElement('div');    // Create a new div for the charts
+    chartDiv.classList.add('chart-flex-container');    // Add a class for flex display
+    chartDiv.style.display = 'flex';    // Add inline style for display:flex
+    
     const incomeCanvas = document.createElement('canvas');     // Create a canvas element for the income chart
     incomeCanvas.id = `incomeChart${i}`;
     incomeCanvas.classList.add('mb-5');
-    container.appendChild(incomeCanvas);
-    
-    const modelName = modelData.model_info.model_name;     // Get the model name and date created
-    const dateCreated = modelData.model_info.date_created;
-    const modelNameHeading = document.createElement('h3');     // Create a heading element for the model name
-    modelNameHeading.textContent = `${modelName}`;
-    container.insertBefore(modelNameHeading, incomeCanvas);
-    const dateCreatedParagraph = document.createElement('p');     // Create a paragraph element for the date created
-    dateCreatedParagraph.textContent = `Created on: ${dateCreated}`;
-    container.insertBefore(dateCreatedParagraph, incomeCanvas);
+    incomeCanvas.classList.add('mr-5');
+    chartDiv.appendChild(incomeCanvas);
     
     const savingsCanvas = document.createElement('canvas');     // Create a canvas element for the savings chart
     savingsCanvas.id = `savingsChart${i}`;
     savingsCanvas.classList.add('mb-5');
-    container.appendChild(savingsCanvas);
+    savingsCanvas.classList.add('mr-5');
+    chartDiv.appendChild(savingsCanvas);
+    
+    container.appendChild(chartDiv);    // Append the chart div to the container
     
     document.getElementById('chartContainer').appendChild(container);     // Append the container to the chartContainer element
-    document.getElementById('SavingschartContainer').appendChild(savingsCanvas);     // Append the savingsCanvas to the SavingschartContainer element
     // Destroy the previous chart instance if it exists (for the savings chart)
     if (window.savingsChartInstances && window.savingsChartInstances[i]) {
       window.savingsChartInstances[i].destroy();
