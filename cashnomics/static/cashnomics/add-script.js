@@ -65,21 +65,15 @@ function updateStep(step) {
     nextButton.style.display = 'none';
     backButton.style.display = 'none';
   
-    // Create new buttons
-    const saveButton = document.createElement('a');
-    saveButton.innerText = 'Save my moneymap';
-    saveButton.href = '/accounts/signup/';
-    saveButton.classList.add('btn', 'btn-success', 'mr-3');
-  
-    const exploreButton = document.createElement('a');
-    exploreButton.innerText = 'Explore';
-    exploreButton.href = '/accounts/signup/';
-    exploreButton.classList.add('btn', 'btn-info');
-  
-    // Append new buttons to the container
-    const buttonContainer = document.getElementById('button-container');
-    buttonContainer.appendChild(saveButton);
-    buttonContainer.appendChild(exploreButton);
+    // Create new button
+  const saveAndViewButton = document.createElement('a');
+  saveAndViewButton.innerText = 'Save and View Model';
+  saveAndViewButton.href = '/dashboard';
+  saveAndViewButton.classList.add('btn', 'btn-success', 'mr-3');
+
+  // Append new button to the container
+  const buttonContainer = document.getElementById('button-container');
+  buttonContainer.appendChild(saveAndViewButton);
     }else {
       nextButton.innerText = 'Next';
       nextButton.classList.add('m-2');

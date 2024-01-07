@@ -168,13 +168,6 @@ window.addEventListener("load", function () {
     const savingsData = localStorage.getItem("SavingsInvestmentsData");
     const profileData = localStorage.getItem("UserProfileData");
 
-    // Log the data to be sent
-    console.log("Data to be sent:", {
-      expenses: expensesData,
-      income: incomeData,
-      savings: savingsData,
-    });
-
       // Send the data to the API endpoint
       if (expensesData || incomeData || savingsData || profileData) {
         fetch("http://127.0.0.1:8000/json_api", {
