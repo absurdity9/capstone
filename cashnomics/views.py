@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 import json
@@ -90,9 +91,6 @@ def json_api(request):
 def ranking(request):
     return render(request, "cashnomics/ranking.html", {
     })
-
-from django.shortcuts import get_object_or_404
-from django.http import HttpResponse
 
 def update(request, financial_model_id):
     if request.method == 'POST':

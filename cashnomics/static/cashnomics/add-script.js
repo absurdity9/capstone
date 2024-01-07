@@ -81,10 +81,11 @@ function updateStep(step) {
 
     // Saving Inputs Form 1 tab 1
     const salaryAmount = document.getElementById('salaryAmount'), salaryValue = parseInt(salaryInput.value);
-    let age = document.getElementById('Age').value;
-    let industry = document.getElementById('Industry').value;
     let netMonthlySalary = calculateNetSalary(salaryValue);
     let cashLeft;
+
+    // Model name
+    const nameValue = document.getElementById('modelName').value
 
     // Div for information container 1 tab 2
     if (currentStep === 1) {
@@ -92,18 +93,17 @@ function updateStep(step) {
       netMonthlySalaryDisplay.textContent = netMonthlySalary.toFixed(2);
       chartData.push(netMonthlySalary);
       // Save to LS
-      var formData = {
+      var formData = { // Data for logged in and not logged in users
         salary: salaryValue,
         income_after_tax: netMonthlySalary,
       };
-      var formData2 = {
-        age: age,
-        industry: industry
+      var additional_formData = { // Data for logged in users adding another model
+        name: nameValue,
       };
-    
-    localStorage.setItem('IncomeData', JSON.stringify(formData));
-    localStorage.setItem('UserProfileData', JSON.stringify(formData2));
+      console.log(nameValue);
 
+    localStorage.setItem('IncomeData', JSON.stringify(formData));
+    localStorage.setItem('ModelData', JSON.stringify(additional_formData));
     }
     // Saving Inputs for Form 2 in tab 3
     const cost_sh_bills = document.getElementById('cost_sh_bills').value;

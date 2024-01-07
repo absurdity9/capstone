@@ -8,7 +8,6 @@ window.addEventListener("load", function () {
     const modelData = data[modelId];
     const incomeAfterTax = modelData.income_forms[0].income_after_tax;     // Income 
     const expensesForms = modelData.expenses_forms;
-    const savingsInvestments = modelData.savings_investments;
     let totalCost = 0;
     for (let j = 0; j < expensesForms.length; j++) {     // Calculate total costs
       const expenseCost = expensesForms[j].cost_sh_bills;
@@ -33,52 +32,41 @@ window.addEventListener("load", function () {
     }
 
     const container = document.createElement('div');
-    container.classList.add('chart-container');
-    
+    container.classList.add('chart-container'); // Create chart container
     const modelName = modelData.model_info.model_name;
     const dateCreated = modelData.model_info.date_created;
-    
     const columnDiv = document.createElement('div');
     columnDiv.classList.add('col-12', 'd-flex', 'flex-column'); // Add 'flex-column' class
-    
     const modelNameEditDiv = document.createElement('div'); // Create a div to hold the model name and edit button
     modelNameEditDiv.classList.add('d-flex');
-    
     const modelNameHeading = document.createElement('h3');
     modelNameHeading.textContent = `${modelName}`;
     modelNameEditDiv.appendChild(modelNameHeading);
-    
     const editButton = document.createElement('button');
     editButton.classList.add('btn', 'btn-secondary', 'ml-2');
     editButton.textContent = 'Edit Model';
     modelNameEditDiv.appendChild(editButton);
-    
     columnDiv.appendChild(modelNameEditDiv);
-    
     const dateCreatedParagraph = document.createElement('p');
     dateCreatedParagraph.textContent = `Created on: ${dateCreated}`;
     columnDiv.appendChild(dateCreatedParagraph);
-    
     container.appendChild(columnDiv);
     
     const chartDiv = document.createElement('div');
     chartDiv.classList.add('chart-flex-container');
     chartDiv.style.display = 'flex';
-    
-    const incomeCanvas = document.createElement('canvas');
+    const incomeCanvas = document.createElement('canvas'); // Create income chart canvas
     incomeCanvas.id = `incomeChart${i}`;
     incomeCanvas.classList.add('mb-5');
     incomeCanvas.classList.add('mr-5');
     chartDiv.appendChild(incomeCanvas);
-    
-    const savingsCanvas = document.createElement('canvas');
+  
+    const savingsCanvas = document.createElement('canvas'); // Create savings chart canvas
     savingsCanvas.id = `savingsChart${i}`;
     savingsCanvas.classList.add('mb-5');
     savingsCanvas.classList.add('mr-5');
     chartDiv.appendChild(savingsCanvas);
-    
     container.appendChild(chartDiv);
-    
     document.getElementById('chartContainer').appendChild(container);
     
     // Destroy the previous chart instance if it exists (for the savings chart)
@@ -86,7 +74,6 @@ window.addEventListener("load", function () {
       window.savingsChartInstances[i].destroy();
     }
 
-    // Create the income chart instance
     const incomeCtx = document.getElementById(`incomeChart${i}`).getContext('2d');
     const incomeChart = new Chart(incomeCtx, {
       type: 'bar',
@@ -120,7 +107,6 @@ window.addEventListener("load", function () {
       window.savingsChartInstances[i].destroy();
     }
 
-    // Create the savings chart instance
     const savingsCtx = document.getElementById(`savingsChart${i}`).getContext('2d');
     const savingsChart = new Chart(savingsCtx, {
       type: 'line',
@@ -158,8 +144,6 @@ window.addEventListener("load", function () {
     window.savingsChartInstances[i] = savingsChart;
     capitals.push(modelCapitals); // Store the capital values for all models
   }
-
-  console.log("All capitals:", capitals);
 
   if (localStorage) {
     // Retrieve data from localStorage
@@ -203,12 +187,3 @@ window.addEventListener("load", function () {
     }
   }
 })
-
-function showSuccessAlert() {
-  const alertBanner = document.createElement("div");
-  alertBanner.classList.add("alert", "alert-success");
-  alertBanner.textContent = "Your cashnomics chart has been saved!";
-
-  const container = document.querySelector(".container");
-  container.prepend(alertBanner);
-}
