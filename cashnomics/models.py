@@ -53,6 +53,8 @@ class FinancialModel(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='financial_model')
     model_name = models.CharField(max_length=200, default='Default Model Name')
     date_created = models.DateTimeField(default=timezone.now)    
+    def __str__(self):
+        return self.model_name
 
 # IncomeForm Model
 class IncomeForm(models.Model):

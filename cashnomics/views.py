@@ -49,6 +49,7 @@ def dashboard(request):
         data[model.id] = model_data
 
     json_data = json.dumps(data)
+    print(json_data)  # Print the data in the terminal
 
     context = {
         'financial_model_count': financial_model_count,
@@ -74,12 +75,53 @@ def json_api(request):
             profile_dict = json.loads(profile_data)
             savings_data = data.get('savings')
             savings_dict = json.loads(savings_data)
+            model_data = data.get('model')
+            model_dict = json.loads(model_data)
+
+            if model_dict and 'name' in model_dict:
+                financial_model.model_name = model_dict['name']
+                financial_model.save()
 
             if data:
                 IncomeForm.objects.create(financial_model=financial_model, **income_dict)
                 ExpensesForm.objects.create(financial_model=financial_model, **expenses_dict)
                 SavingsInvestments.objects.create(financial_model=financial_model, **savings_dict)
                 UserProfile.objects.create(user=user, **profile_dict)
+                # UserProfile.objects.create(user=user, **profile_dict)  # Assuming UserProfile is a separate model
+
+            return HttpResponse(status=200)
+        except json.JSONDecodeError:
+            return HttpResponse(status=400)
+
+    return HttpResponse(status=405)
+
+@csrf_exempt
+def json_api_add(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            data_string = json.dumps(data)
+            user = request.user  # Assuming 'request.user' is a valid user instance
+            financial_model = FinancialModel.objects.create(user=user)
+            print(data_string)  # Print the JSON data as a string in the terminal
+
+            expenses_data = data.get('expenses')
+            expenses_dict = json.loads(expenses_data)
+            income_data = data.get('income')
+            income_dict = json.loads(income_data)
+            savings_data = data.get('savings')
+            savings_dict = json.loads(savings_data)
+            model_data = data.get('model')
+            model_dict = json.loads(model_data)
+
+            if model_dict and 'name' in model_dict:
+                financial_model.model_name = model_dict['name']
+                financial_model.save()
+
+            if data:
+                IncomeForm.objects.create(financial_model=financial_model, **income_dict)
+                ExpensesForm.objects.create(financial_model=financial_model, **expenses_dict)
+                SavingsInvestments.objects.create(financial_model=financial_model, **savings_dict)
                 # UserProfile.objects.create(user=user, **profile_dict)  # Assuming UserProfile is a separate model
 
             return HttpResponse(status=200)

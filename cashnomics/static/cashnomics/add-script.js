@@ -68,8 +68,8 @@ function updateStep(step) {
     // Create new button
   const saveAndViewButton = document.createElement('a');
   saveAndViewButton.innerText = 'Save and View Model';
-  saveAndViewButton.href = '/dashboard';
   saveAndViewButton.classList.add('btn', 'btn-success', 'mr-3');
+  saveAndViewButton.addEventListener('click', saveforms);
 
   // Append new button to the container
   const buttonContainer = document.getElementById('button-container');
@@ -244,3 +244,44 @@ edit.addEventListener('click', function(event) {
     const modal = bootstrap.Modal.getInstance(document.getElementById('editModal'));
     modal.hide();
   });
+
+  function saveforms() {
+    // Retrieve data from localStorage
+    const expensesData = localStorage.getItem("ExpensesData");
+    const incomeData = localStorage.getItem("IncomeData");
+    const savingsData = localStorage.getItem("SavingsInvestmentsData");
+    const modelData = localStorage.getItem("ModelData");
+  
+    // Send the data to the API endpoint
+    if (expensesData || incomeData || savingsData || profileData || modelData) {
+      fetch("http://127.0.0.1:8000/json_api_add", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          expenses: expensesData,
+          income: incomeData,
+          savings: savingsData,
+          model: modelData,
+        }),
+      })
+        .then((response) => {
+          if (response.ok) {
+            // Clear the data from localStorage
+            localStorage.removeItem("ExpensesData");
+            localStorage.removeItem("IncomeData");
+            localStorage.removeItem("SavingsInvestmentsData");
+            localStorage.removeItem("ModelData");
+            location.reload();
+          } else {
+            console.error("Failed to send data.");
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    } else {
+      console.log("No data found in localStorage.");
+    }
+  }

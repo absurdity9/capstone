@@ -3,6 +3,7 @@ window.addEventListener("load", function () {
   var data = JSON.parse(jsonData);
   const financialModelCount = Object.keys(data).length;
   let capitals = [];
+
   for (let i = 0; i < financialModelCount; i++) {   // Loop for each model
     const modelId = Object.keys(data)[i];     // Get the data for the current financial model
     const modelData = data[modelId];
@@ -168,7 +169,6 @@ window.addEventListener("load", function () {
       })
         .then((response) => {
           if (response.ok) {
-            showSuccessAlert();
             // Clear the data from localStorage
           localStorage.removeItem("ExpensesData");
           localStorage.removeItem("IncomeData");
