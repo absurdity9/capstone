@@ -46,6 +46,9 @@ window.addEventListener("load", function () {
     const editButton = document.createElement('button');
     editButton.classList.add('btn', 'btn-secondary', 'ml-2');
     editButton.textContent = 'Edit Model';
+    editButton.addEventListener('click', function() {
+      editModel(modelId); // Pass the modelId to the editModel function
+    }); // Edit btn eventlistener
     modelNameEditDiv.appendChild(editButton);
     columnDiv.appendChild(modelNameEditDiv);
     const dateCreatedParagraph = document.createElement('p');
@@ -187,3 +190,24 @@ window.addEventListener("load", function () {
     }
   }
 })
+
+function editModel(modelId) {
+  const modalTitle = document.getElementById('exampleModalLabel');
+  modalTitle.textContent = 'Edit Model - ' + modelId;
+
+  const modal = new bootstrap.Modal(document.getElementById('editModal'));
+  modal.show();
+}
+
+function closeModal() {
+  const modal = bootstrap.Modal.getInstance(editModal);
+  modal.hide();
+}
+
+// Event listener for closing the modal when the "Close" button is clicked
+const closeButton = document.getElementById('closeModalButton');
+closeButton.addEventListener('click', closeModal);
+
+// Event listener for closing the modal when the "x" button is clicked
+const closeIcon = document.querySelector('.modal-header .close');
+closeIcon.addEventListener('click', closeModal);
