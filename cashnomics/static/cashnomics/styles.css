@@ -16,3 +16,12 @@
 .chart-flex-container {
   margin-right: 24px;
 }
+
+.forms-container {
+  display: flex;
+  gap: 20px;
+}
+  
+.form-wrapper {
+  flex: 1;
+}

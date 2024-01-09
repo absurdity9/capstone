@@ -32,7 +32,7 @@
   </div>
 
   <div class="modal fade" id="editModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
@@ -41,7 +41,60 @@
           </button>
         </div>
         <div class="modal-body">
-          ...
+
+        <div class="forms-container">
+          <div class="form-wrapper">
+          <!-- Cash in form-->
+          <form>
+            <div class="mb-3">
+              <label for="Model Name" class="form-label">Name your financial model</label>
+              <input type="text" class="form-control" id="modelName" aria-describedby="modelName" value="Default Model Name" placeholder="">
+            </div>
+            <div class="mb-3">
+              <label for="Salary" class="form-label">Salary per year (before taxes)</label>
+              <input type="text" class="form-control" id="Salary" aria-describedby="Salary" value="0" placeholder="0">
+            </div>
+          </form>
+          <!-- Cash out form-->
+          <form>
+            <div class="mb-3">
+              <label for="user_name" class="form-label">Cost of Shelter & Bills</label>
+              <input type="text" class="form-control" id="cost_sh_bills" value="0" placeholder="0">
+            </div>
+            <div class="mb-3">
+              <label for="first_name" class="form-label">Cost of Travel</label>
+              <input type="text" class="form-control" id="cost_travel" value="0" placeholder="0">
+            </div>
+            <div class="mb-3">
+              <label for="last_name" class="form-label">Cost of Groceries</label>
+              <input type="text" class="form-control" id="cost_groceries" value="0" placeholder="0">
+            </div>
+            <div class="mb-3">
+              <label for="last_name" class="form-label">Other Costs</label>
+              <input type="text" class="form-control" id="cost_other" value="0" placeholder="0">
+            </div>
+          </form>
+          <!-- Savings form-->
+          <form>
+            <div class="mb-3">
+              <label for="company" class="form-label">Amount in a Savings Account</label>
+              <input type="text" class="form-control" id="amt_Savings" value="0" placeholder="0">
+            </div>
+            <div class="mb-3">
+              <label for="experience" class="form-label">Yearly Interest % Earned</label>
+              <input type="text" class="form-control" id="yield_Savings" value="0" placeholder="0">
+            </div>
+            <div class="mb-3">
+              <label for="designation" class="form-label">Amount in Vanguard Account</label>
+              <input type="text" class="form-control" id="amt_Vanguard" value="0" placeholder="0">
+            </div>
+            <div class="mb-3">
+              <label for="designation" class="form-label">Benchmark % Return</label>
+              <input type="text" class="form-control" id="yield_Vanguard" value="0" placeholder="0">
+            </div>
+          </form>
+        </div>
+      </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" id="closeModalButton" data-dismiss="modal">Close</button>
@@ -50,6 +103,7 @@
       </div>
     </div>
   </div>
+
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"></script>
