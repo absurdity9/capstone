@@ -10,27 +10,27 @@ window.addEventListener("load", function () {
     const incomeAfterTax = modelData.income_forms[0].income_after_tax;     // Income 
     const expensesForms = modelData.expenses_forms;
     let totalCost = 0;
-    for (let j = 0; j < expensesForms.length; j++) {     // Calculate total costs
-      const expenseCost = expensesForms[j].cost_sh_bills;
-      totalCost += expenseCost;
-    }
+      for (let j = 0; j < expensesForms.length; j++) {     // Calculate total costs
+        const expenseCost = expensesForms[j].cost_sh_bills;
+        totalCost += expenseCost;
+      }
     const cashLeft = incomeAfterTax - totalCost; // Calculate cash remaining
-    const savingsAmt = modelData.savings_investments[0].savings_amt; // Get the data for the savings chart
-    const etfAmt = modelData.savings_investments[0].etf_amt;
+    const savingsAmt = modelData.savings_investments[0].savings_amt; // Get initial amounts
+    const etfAmt = modelData.savings_investments[0].etf_amt; 
     const etfRate = modelData.savings_investments[0].etf_rate;
     const savingsRate = modelData.savings_investments[0].savings_rate;
     let savingsAccumulated = 0;
     let etfAccumulated = 0;
     let modelCapitals = []; // Array to store capital values 
 
-    for (let year = 1; year <= 5; year++) {
-      const savingsForYear = savingsAmt * savingsRate; // Calculate savings accumulated & ETF accumulated for the current year
-      const etfForYear = etfAmt * etfRate;
-      savingsAccumulated += savingsForYear;
-      etfAccumulated += etfForYear;
-      const capital = savingsAccumulated + etfAccumulated;
-      modelCapitals.push(capital);
-    }
+      for (let year = 1; year <= 5; year++) {
+        const savingsForYear = savingsAmt * savingsRate; // Calculate savings accumulated & ETF accumulated for the current year
+        const etfForYear = etfAmt * etfRate;
+        savingsAccumulated += savingsForYear;
+        etfAccumulated += etfForYear;
+        const capital = savingsAccumulated + etfAccumulated;
+        modelCapitals.push(capital);
+      }
 
     const container = document.createElement('div');
     container.classList.add('chart-container'); // Create chart container
@@ -46,9 +46,15 @@ window.addEventListener("load", function () {
     const editButton = document.createElement('button');
     editButton.classList.add('btn', 'btn-secondary', 'ml-2');
     editButton.textContent = 'Edit Model';
-    editButton.addEventListener('click', function() {
-      editModel(modelId); // Pass the modelId to the editModel function
-    }); // Edit btn eventlistener
+
+    const salary = modelData.income_forms.length > i ? modelData.income_forms[i].salary : 0;
+    const cost_sh_bills = modelData.income_forms.length > i ? modelData.income_forms[i].cost_sh_bills : 0;
+    const cost_travel = modelData.income_forms.length > i ? modelData.income_forms[i].cost_travel : 0;
+    const cost_groceries = modelData.income_forms.length > i ? modelData.income_forms[i].cost_groceries : 0;
+    const cost_other = modelData.income_forms.length > i ? modelData.income_forms[i].cost_other : 0;     
+
+    editButton.addEventListener('click', function() {editModel(modelId,modelName,salary,cost_sh_bills,cost_travel,cost_groceries,cost_other, savingsAmt,etfAmt, etfRate,savingsRate); }); // Edit btn eventlistener
+    
     modelNameEditDiv.appendChild(editButton);
     columnDiv.appendChild(modelNameEditDiv);
     const dateCreatedParagraph = document.createElement('p');
@@ -191,7 +197,7 @@ window.addEventListener("load", function () {
   }
 })
 
-function editModel(modelId) {
+function editModel(modelId,modelName,salary,cost_sh_bills,cost_travel,cost_groceries,cost_other, savingsAmt,etfAmt, etfRate,savingsRate) {
   const modalTitle = document.getElementById('exampleModalLabel');
   modalTitle.textContent = 'Edit Model - ' + modelId;
 
