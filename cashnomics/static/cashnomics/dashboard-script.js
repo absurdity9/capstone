@@ -7,6 +7,7 @@ window.addEventListener("load", function () {
   for (let i = 0; i < financialModelCount; i++) {   // Loop for each model
     const modelId = Object.keys(data)[i];     // Get the data for the current financial model
     const modelData = data[modelId];
+    console.log(modelData);
     const incomeAfterTax = modelData.income_forms[0].income_after_tax;     // Income 
     const expensesForms = modelData.expenses_forms;
     let totalCost = 0;
@@ -15,10 +16,12 @@ window.addEventListener("load", function () {
         totalCost += expenseCost;
       }
     const cashLeft = incomeAfterTax - totalCost; // Calculate cash remaining
+
     const savingsAmt = modelData.savings_investments[0].savings_amt; // Get initial amounts
     const etfAmt = modelData.savings_investments[0].etf_amt; 
     const etfRate = modelData.savings_investments[0].etf_rate;
     const savingsRate = modelData.savings_investments[0].savings_rate;
+
     let savingsAccumulated = 0;
     let etfAccumulated = 0;
     let modelCapitals = []; // Array to store capital values 
@@ -47,11 +50,11 @@ window.addEventListener("load", function () {
     editButton.classList.add('btn', 'btn-secondary', 'ml-2');
     editButton.textContent = 'Edit Model';
 
-    const salary = modelData.income_forms.length > i ? modelData.income_forms[i].salary : 0;
-    const cost_sh_bills = modelData.income_forms.length > i ? modelData.income_forms[i].cost_sh_bills : 0;
-    const cost_travel = modelData.income_forms.length > i ? modelData.income_forms[i].cost_travel : 0;
-    const cost_groceries = modelData.income_forms.length > i ? modelData.income_forms[i].cost_groceries : 0;
-    const cost_other = modelData.income_forms.length > i ? modelData.income_forms[i].cost_other : 0;     
+    const salary = modelData.income_forms[0].salary;     
+    const cost_sh_bills = modelData.expenses_forms[0].cost_sh_bills;     
+    const cost_travel = modelData.expenses_forms[0].cost_travel;     
+    const cost_groceries = modelData.expenses_forms[0].cost_groceries;     
+    const cost_other = modelData.expenses_forms[0].cost_other;   
 
     editButton.addEventListener('click', function() {editModel(modelId,modelName,salary,cost_sh_bills,cost_travel,cost_groceries,cost_other, savingsAmt,etfAmt, etfRate,savingsRate); }); // Edit btn eventlistener
     
@@ -197,9 +200,21 @@ window.addEventListener("load", function () {
   }
 })
 
-function editModel(modelId,modelName,salary,cost_sh_bills,cost_travel,cost_groceries,cost_other, savingsAmt,etfAmt, etfRate,savingsRate) {
+function editModel(modelId,modelName,salary,cost_sh_bills,cost_travel,cost_groceries,cost_other, savingsAmt, etfAmt, etfRate, savingsRate) {
   const modalTitle = document.getElementById('exampleModalLabel');
   modalTitle.textContent = 'Edit Model - ' + modelId;
+
+  // Set the values of the input fields
+  document.getElementById('modelName').value = modelName;
+  document.getElementById('Salary').value = salary;
+  document.getElementById('cost_sh_bills').value = cost_sh_bills;
+  document.getElementById('cost_travel').value = cost_travel;
+  document.getElementById('cost_groceries').value = cost_groceries;
+  document.getElementById('cost_other').value = cost_other;
+  document.getElementById('amt_Savings').value = savingsAmt;
+  document.getElementById('amt_Vanguard').value = etfAmt;
+  document.getElementById('yield_Savings').value = savingsRate;
+  document.getElementById('yield_Vanguard').value = etfRate;
 
   const modal = new bootstrap.Modal(document.getElementById('editModal'));
   modal.show();
