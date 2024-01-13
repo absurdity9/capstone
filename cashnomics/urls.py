@@ -10,5 +10,5 @@ urlpatterns = [
     path("json_api_add", views.json_api_add, name='json_api_add'),
     path("ranking", views.ranking, name="ranking"),
     path("add", views.add, name="add"),
-    path("update/<int:financial_model_id", views.update, name="update")
+    path("update/<int:financial_model_id>", views.update, name="update")
 ]

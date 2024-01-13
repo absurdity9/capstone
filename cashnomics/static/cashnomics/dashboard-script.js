@@ -200,7 +200,7 @@ window.addEventListener("load", function () {
   }
 })
 
-function editModel(modelId,modelName,salary,cost_sh_bills,cost_travel,cost_groceries,cost_other, savingsAmt, etfAmt, etfRate, savingsRate) {
+function editModel(modelId, modelName, salary, cost_sh_bills, cost_travel, cost_groceries, cost_other, savingsAmt, etfAmt, etfRate, savingsRate) {
   const modalTitle = document.getElementById('exampleModalLabel');
   modalTitle.textContent = 'Edit Model - ' + modelId;
 
@@ -218,6 +218,55 @@ function editModel(modelId,modelName,salary,cost_sh_bills,cost_travel,cost_groce
 
   const modal = new bootstrap.Modal(document.getElementById('editModal'));
   modal.show();
+
+  const form = document.querySelector('form');
+  const saveButton = document.getElementById('saveEditsBtn');
+
+  saveButton.addEventListener('click', () => {
+    console.log("Save Edits Btn Clicked")
+    const modelName = document.getElementById('modelName').value;
+    const salary = parseFloat(document.getElementById('Salary').value);
+    const costShBills = parseFloat(document.getElementById('cost_sh_bills').value);
+    const costTravel = parseFloat(document.getElementById('cost_travel').value);
+    const costGroceries = parseFloat(document.getElementById('cost_groceries').value);
+    const costOther = parseFloat(document.getElementById('cost_other').value);
+    const savingsAmt = parseFloat(document.getElementById('amt_Savings').value);
+    const savingsRate = parseFloat(document.getElementById('yield_Savings').value);
+    const etfAmt = parseFloat(document.getElementById('amt_Vanguard').value);
+    const etfRate = parseFloat(document.getElementById('yield_Vanguard').value);
+
+    const data = {
+      model_name: modelName,
+      income_data: JSON.stringify({ salary }),
+      expenses_data: JSON.stringify({
+        cost_sh_bills,
+        cost_travel,
+        cost_groceries,
+        cost_other,
+      }),
+      savings_data: JSON.stringify({ savings_amt: savingsAmt, savings_rate: savingsRate, etf_amt: etfAmt, etf_rate: etfRate }),
+    };
+
+    console.log(data);
+
+    fetch(`http://127.0.0.1:8000/update/${modelId}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    })
+      .then((response) => {
+        if (response.ok) {
+          // Success
+          console.log('Data successfully posted.');
+        } else {
+          // Error
+          console.log('Error posting data.');
+        }
+      })
+      .catch((error) => {
+        console.log('Error:', error);
+      });
+  });
 }
 
 function closeModal() {
