@@ -7,6 +7,7 @@ import simplejson
 from decimal import Decimal
 from .models import ExpensesForm, IncomeForm, SavingsInvestments, UserProfile, CustomUser, FinancialModel
 from django.forms.models import model_to_dict
+from django.http import JsonResponse
 
 # Create your views here.
 
@@ -182,3 +183,33 @@ def update(request, financial_model_id):
             return HttpResponse(status=400)
 
     return HttpResponse(status=405)
+
+def update_model_data(request, financial_model_id):
+    try:
+        model = FinancialModel.objects.get(id=financial_model_id)
+        
+        income_form = model.incomes.first()  # Assuming there is only one income form per financial model
+        expenses_form = model.expenses.first()  # Assuming there is only one expenses form per financial model
+        savings_investments = model.savings.first()  # Assuming there is only one savings/investments form per financial model
+
+        updated_data = {
+            'id': model.id,
+            'model_name': model.model_name,
+            'salary': income_form.salary,
+            'income_after_tax': income_form.income_after_tax,
+            'cost_sh_bills': expenses_form.cost_sh_bills,
+            'cost_travel': expenses_form.cost_travel,
+            'cost_groceries': expenses_form.cost_groceries,
+            'cost_other': expenses_form.cost_other,
+            'money_after_costs': expenses_form.money_aftercosts,
+            'savings_amt': savings_investments.savings_amt,
+            'savings_rate': savings_investments.savings_rate,
+            'etf_amt': savings_investments.etf_amt,
+            'etf_rate': savings_investments.etf_rate,
+        }
+
+        print(updated_data)  # Print the updated_data in the terminal
+
+        return JsonResponse(updated_data)
+    except FinancialModel.DoesNotExist:
+        return JsonResponse({'error': 'Model not found'}, status=404)

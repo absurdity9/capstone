@@ -258,6 +258,9 @@ function editModel(modelId, modelName, salary, cost_sh_bills, cost_travel, cost_
         if (response.ok) {
           // Success
           console.log('Data successfully posted.');
+          closeModal();
+          location.reload();
+
         } else {
           // Error
           console.log('Error posting data.');
