@@ -58,7 +58,7 @@ def dashboard(request):
     return render(request, "cashnomics/dashboard.html", context)
 
 @csrf_exempt
-def json_api(request):
+def json_api(request): #Add the first time after logging in
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
@@ -96,7 +96,7 @@ def json_api(request):
     return HttpResponse(status=405)
 
 @csrf_exempt
-def json_api_add(request):
+def json_api_add(request): #Add another model from the dashboard 
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
