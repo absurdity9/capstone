@@ -46,9 +46,20 @@ window.addEventListener("load", function () {
     const modelNameHeading = document.createElement('h3');
     modelNameHeading.textContent = `${modelName}`;
     modelNameEditDiv.appendChild(modelNameHeading);
-    const editButton = document.createElement('button');
+    
+    const deleteButton = document.createElement('button'); //Delete btn
+    deleteButton.classList.add('btn', 'btn-danger', 'ml-2');
+    deleteButton.textContent = 'Delete';
+    modelNameEditDiv.appendChild(deleteButton);
+
+    const editButton = document.createElement('button'); //Edit btn
     editButton.classList.add('btn', 'btn-secondary', 'ml-2');
     editButton.textContent = 'Edit Model';
+    modelNameEditDiv.appendChild(editButton);
+
+    deleteButton.addEventListener('click', function() {
+      deleteModal(modelName);
+    });
 
     const salary = modelData.income_forms[0].salary;     
     const cost_sh_bills = modelData.expenses_forms[0].cost_sh_bills;     
@@ -58,7 +69,6 @@ window.addEventListener("load", function () {
 
     editButton.addEventListener('click', function() {editModel(modelId,modelName,salary,cost_sh_bills,cost_travel,cost_groceries,cost_other, savingsAmt,etfAmt, etfRate,savingsRate); }); // Edit btn eventlistener
     
-    modelNameEditDiv.appendChild(editButton);
     columnDiv.appendChild(modelNameEditDiv);
     const dateCreatedParagraph = document.createElement('p');
     dateCreatedParagraph.textContent = `Created on: ${dateCreated}`;
@@ -199,7 +209,7 @@ window.addEventListener("load", function () {
     }
   }
 })
-
+//Edit modal 
 function editModel(modelId, modelName, salary, cost_sh_bills, cost_travel, cost_groceries, cost_other, savingsAmt, etfAmt, etfRate, savingsRate) {
   const modalTitle = document.getElementById('exampleModalLabel');
   modalTitle.textContent = 'Edit Model - ' + modelId;
@@ -272,15 +282,12 @@ function editModel(modelId, modelName, salary, cost_sh_bills, cost_travel, cost_
   });
 }
 
-function closeModal() {
+function closeModal() { // Close fx for edit modal
   const modal = bootstrap.Modal.getInstance(editModal);
   modal.hide();
 }
-
-// Event listener for closing the modal when the "Close" button is clicked
-const closeButton = document.getElementById('closeModalButton');
+const closeButton = document.getElementById('closeModalButton'); // Close fx for edit modal
 closeButton.addEventListener('click', closeModal);
 
-// Event listener for closing the modal when the "x" button is clicked
-const closeIcon = document.querySelector('.modal-header .close');
+const closeIcon = document.querySelector('.modal-header .close'); // Close fx for edit modal
 closeIcon.addEventListener('click', closeModal);
