@@ -25,3 +25,7 @@
 .form-wrapper {
   flex: 1;
 }
+
+.flexGrow{
+  flex-grow:1;
+}

@@ -42,18 +42,19 @@ window.addEventListener("load", function () {
     const columnDiv = document.createElement('div');
     columnDiv.classList.add('col-12', 'd-flex', 'flex-column'); // Add 'flex-column' class
     const modelNameEditDiv = document.createElement('div'); // Create a div to hold the model name and edit button
-    modelNameEditDiv.classList.add('d-flex');
+    modelNameEditDiv.classList.add('d-flex','mb-1');
     const modelNameHeading = document.createElement('h3');
+    modelNameHeading.classList.add('me-3', 'flexGrow');
     modelNameHeading.textContent = `${modelName}`;
     modelNameEditDiv.appendChild(modelNameHeading);
     
     const deleteButton = document.createElement('button'); //Delete btn
-    deleteButton.classList.add('btn', 'btn-danger', 'ml-2');
+    deleteButton.classList.add('btn', 'btn-danger', 'me-3');
     deleteButton.textContent = 'Delete';
     modelNameEditDiv.appendChild(deleteButton);
 
     const editButton = document.createElement('button'); //Edit btn
-    editButton.classList.add('btn', 'btn-secondary', 'ml-2');
+    editButton.classList.add('btn', 'btn-secondary');
     editButton.textContent = 'Edit Model';
     modelNameEditDiv.appendChild(editButton);
 
@@ -71,6 +72,7 @@ window.addEventListener("load", function () {
     
     columnDiv.appendChild(modelNameEditDiv);
     const dateCreatedParagraph = document.createElement('p');
+    dateCreatedParagraph.classList.add('text-secondary');
     dateCreatedParagraph.textContent = `Created on: ${dateCreated}`;
     columnDiv.appendChild(dateCreatedParagraph);
     container.appendChild(columnDiv);
@@ -280,6 +282,15 @@ function editModel(modelId, modelName, salary, cost_sh_bills, cost_travel, cost_
         console.log('Error:', error);
       });
   });
+}
+
+
+function deleteModal(modelId) {
+  const modalTitle = document.getElementById('deleteModalLabel');
+  modalTitle.textContent = 'Edit Model - ' + modelId;
+
+  const modal = new bootstrap.Modal(document.getElementById('deleteModal'));
+  modal.show();
 }
 
 function closeModal() { // Close fx for edit modal
