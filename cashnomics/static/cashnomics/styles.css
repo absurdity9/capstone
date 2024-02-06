@@ -29,3 +29,7 @@
 .flexGrow{
   flex-grow:1;
 }
+
+.hero-col{
+  background-color: #1B1821;
+}

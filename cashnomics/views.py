@@ -17,6 +17,10 @@ def index(request):
     return render(request, "cashnomics/index.html", {
     })
 
+def intro(request):
+    return render(request, "cashnomics/intro.html", {
+    })
+
 def add(request):
     return render(request, "cashnomics/add.html", {
     })
