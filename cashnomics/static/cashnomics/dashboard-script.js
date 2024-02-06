@@ -59,7 +59,7 @@ window.addEventListener("load", function () {
     modelNameEditDiv.appendChild(editButton);
 
     deleteButton.addEventListener('click', function() {
-      deleteModal(modelName);
+      deleteModel(modelName);
     });
 
     const salary = modelData.income_forms[0].salary;     
@@ -105,8 +105,9 @@ window.addEventListener("load", function () {
       data: {
         labels: ['Cash In', 'Cash Out', 'Cash Left'],
         datasets: [{
+          label: "Monthly Cashflows",
           data: [incomeAfterTax, totalCost, cashLeft],
-          backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+          backgroundColor: ['#405858', '#407173', '#519294'],
           borderWidth: 1,
         }]
       },
@@ -114,10 +115,17 @@ window.addEventListener("load", function () {
         responsive: false,
         maintainAspectRatio: false,
         scales: {
-          y:{
-            beginAtZero: true
-          }
-        }
+          x: {
+            ticks: {
+              color: "#B3AEBD", // Set the x-axis label font color to ##B3AEBD
+            },
+          },
+          y: {
+            ticks: {
+              color: "#B3AEBD", // Set the y-axis label font color to ##B3AEBD
+            },
+          },
+        },
       }
     });
 
@@ -136,18 +144,20 @@ window.addEventListener("load", function () {
     const savingsChart = new Chart(savingsCtx, {
       type: 'line',
       data: {
-        labels: ['Year 1', 'Year 2', 'Year 3', 'Year 4', 'Year 5'],
+        labels: ["1", "2", "3", "4", "5"],
         datasets: [{
-          label: 'Savings Accumulated',
+          label: "Household Assets",
           data: modelCapitals,
-          borderColor: '#FF6384',
-          fill: false,
-          pointRadius: 5,
-          pointBackgroundColor: '#FF6384',
-          pointBorderColor: '#FF6384',
+          borderColor: '#529C9E',
+          backgroundColor: "#519294",
+
+          fill: true,
+          pointRadius: 2,
+          pointBackgroundColor: '#529C9E',
+          pointBorderColor: '#529C9E',
           pointHoverRadius: 10,
           pointHoverBackgroundColor: '#FF6384',
-          pointHoverBorderColor: '#FF6384',
+          pointHoverBorderColor: '#529C9E',
           borderWidth: 2
         }]
       },
@@ -284,8 +294,7 @@ function editModel(modelId, modelName, salary, cost_sh_bills, cost_travel, cost_
   });
 }
 
-
-function deleteModal(modelId) {
+function deleteModel(modelId) {
   const modalTitle = document.getElementById('deleteModalLabel');
   modalTitle.textContent = 'Edit Model - ' + modelId;
 
@@ -297,8 +306,19 @@ function closeModal() { // Close fx for edit modal
   const modal = bootstrap.Modal.getInstance(editModal);
   modal.hide();
 }
-const closeButton = document.getElementById('closeModalButton'); // Close fx for edit modal
-closeButton.addEventListener('click', closeModal);
+const editCloseButton = document.getElementById('closeModalButton'); // Close fx for edit modal
+editCloseButton.addEventListener('click', closeModal);
 
-const closeIcon = document.querySelector('.modal-header .close'); // Close fx for edit modal
-closeIcon.addEventListener('click', closeModal);
+const editCloseIcon = document.querySelector('#closeIcon');
+editCloseIcon.addEventListener('click', closeModal);
+
+function closeDeleteModal() {
+  const modal = bootstrap.Modal.getInstance(deleteModal);
+  modal.hide();
+}
+
+const deleteCloseButton = document.getElementById('DeletecloseModalButton'); // Close fx for edit modal
+deleteCloseButton.addEventListener('click', closeDeleteModal);
+
+const deleteCloseIcon = document.querySelector('#deleteCloseIcon');
+deleteCloseIcon.addEventListener('click', closeDeleteModal);
